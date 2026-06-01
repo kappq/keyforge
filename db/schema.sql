@@ -20,8 +20,8 @@ CREATE TABLE immagine (
 
 CREATE TABLE tastiera (
 	articolo_id INT PRIMARY KEY,
-	dimensione DECIMAL(10, 2) NOT NULL,
-	peso DECIMAL(10, 2) NOT NULL,
+	dimensione INT NOT NULL, -- in millimetri
+	peso INT NOT NULL, -- in grammi
 	layout VARCHAR(255) NOT NULL,
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
 );
@@ -29,7 +29,7 @@ CREATE TABLE tastiera (
 CREATE TABLE switch (
 	articolo_id INT PRIMARY KEY,
 	compatibilita VARCHAR(255) NOT NULL,
-	attivazione DECIMAL(10, 2) NOT NULL,
+	attivazione INT NOT NULL, -- in milligrammi
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
 );
 
