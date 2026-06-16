@@ -8,18 +8,14 @@
 </head>
 <body>
 <main>
-	<%@ page import="keyforge.ConnectionManager" %>
-	<%@ page import="java.sql.*" %>
-	<section class="catalogo">
-		<%
-			Connection conn = ConnectionManager.getConnection();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM articolo");
-		%>
-		<% while (rs.next()) { %>
-			<%= rs.getString("nome") %><br>
-		<% } %>
-	</section>
+	<%@ page import="keyforge.model.Articolo,keyforge.model.ArticoloDAO" %>
+	<%@ page import="keyforge.model.Tastiera,keyforge.model.TastieraDAO" %>
+	<% ArticoloDAO articoloDAO = new ArticoloDAO(); %>
+	<% TastieraDAO tastieraDAO = new TastieraDAO(); %>
+	<% for (Tastiera tastiera : tastieraDAO.findAll()) { %>
+		<% Articolo articolo = articoloDAO.findById(tastiera.getArticoloId()); %>
+		<%= articolo.getNome() %> - <%= tastiera.getLayout() %><br>
+	<% } %>
 </main>
 </body>
 </html>
