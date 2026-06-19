@@ -2,6 +2,7 @@ package keyforge.model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -11,12 +12,11 @@ public class ConnectionManager {
 	public static Connection getConnection() throws SQLException {
 		try {
 			Context initialCtx = new InitialContext();
-			Context envCtx = (Context)initialCtx.lookup("java:comp/env");
-			DataSource ds = (DataSource)envCtx.lookup("jdbc/keyforge");
-			Connection conn = ds.getConnection();
-			return conn;
-		} catch (NamingException | SQLException e) {
-			return null;
+			DataSource ds = (DataSource)initialCtx.lookup("java:comp/env/jdbc/keyforge");
+			return ds.getConnection();
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Database connection failed", e);
 		}
 	}
 }
