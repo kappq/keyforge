@@ -5,7 +5,7 @@
 		auth="Container"
 		driverClassName="com.mysql.cj.jdbc.Driver"
 		type="javax.sql.DataSource"
-		username="kappa"
-		password=""
+		username="root"
+		password="$dennis4"
 		url="jdbc:mysql://localhost:3306/keyforge" />
 </Context>
