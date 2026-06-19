@@ -1,0 +1,27 @@
+body {
+	font-family: sans-serif;
+	color: #383D3B;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.8em;
+}
+
+.articolo {
+	border: 1px solid #CFCFCF;
+	border-radius: 8px;
+	padding: 0.8em;
+	width: 320px;
+	justify-self: center;
+}
+
+.articolo img {
+	border-radius: 8px;
+}
+
+.articolo .spaced {
+	display: flex;
+	justify-content: space-between;
+}
