@@ -27,7 +27,7 @@
 			%>
 			<div class="articolo">
 				<% if (immagini.isEmpty()) { %>
-					<img src="https://placehold.co/320x200"">
+					<img src="https://placehold.co/320x200">
 				<% } else { %>
 					<% Immagine immagine = (Immagine)immagini.toArray()[0]; %>
 					<img src="<%= request.getContextPath() %>/immagine?id=<%= immagine.getId() %>">
