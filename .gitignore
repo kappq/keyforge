@@ -1,1 +1,2 @@
-/build/
+build/
+WebContent/META-INF/context.xml
