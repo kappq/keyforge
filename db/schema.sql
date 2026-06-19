@@ -45,9 +45,11 @@ CREATE TABLE accessorio (
 	tipo VARCHAR(255) NOT NULL,
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
 );
+
 CREATE TABLE carrello (
     id INT AUTO_INCREMENT PRIMARY KEY
 );
+
 CREATE TABLE utente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -57,19 +59,13 @@ CREATE TABLE utente (
     password VARCHAR(255) NOT NULL,
     telefono VARCHAR(20),
     carrello_id INT UNIQUE,
-    
-    FOREIGN KEY (carrello_id)
-        REFERENCES carrello(id)
+    FOREIGN KEY (carrello_id) REFERENCES carrello(id)
 );
+
 CREATE TABLE inclusione (
     carrello_id INT NOT NULL,
     articolo_id INT NOT NULL,
-
     PRIMARY KEY (carrello_id, articolo_id),
-
-    FOREIGN KEY (carrello_id)
-        REFERENCES carrello(id),
-
-    FOREIGN KEY (articolo_id)
-        REFERENCES articolo(id)
+    FOREIGN KEY (carrello_id) REFERENCES carrello(id),
+    FOREIGN KEY (articolo_id) REFERENCES articolo(id)
 );
