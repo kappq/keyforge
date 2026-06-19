@@ -6,8 +6,9 @@
     <title>Login</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
     <script src="${pageContext.request.contextPath}/js/validate-form.js"></script>
+    <script src="${pageContext.request.contextPath}/js/checkEmail.js"></script>
 </head>
-<body>
+<body data-context-path="${pageContext.request.contextPath}">
     <h2>Login</h2>
 
     <form id="lForm" method="post">
@@ -29,6 +30,8 @@
 	    <label for="password">Password:</label><br>
 	    <input type="password" id="password" name="password" placeholder="Almeno 6 caratteri"required><br><br>
 		<ul id="errorList"></ul>
+		<span id="emailMsg"></span>
+		<br>
 	    <button type="submit">Registrati</button>
     </form>
 </body>
