@@ -28,6 +28,7 @@ public class CheckEmailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
+		email = email.trim().toLowerCase();
 		boolean exists = false;
 		try {
 			exists = UtenteDAO.emailExists(email);

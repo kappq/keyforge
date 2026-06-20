@@ -11,7 +11,7 @@
 <body data-context-path="${pageContext.request.contextPath}">
     <h2>Login</h2>
 
-    <form id="lForm" method="post">
+    <form id="lForm" method="post" action="${pageContext.request.contextPath}/RegisterServlet">
 	    <label for="nome">Nome:</label><br>
 	    <input type="text" id="nome" name="nome" required><br><br>
 	

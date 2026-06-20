@@ -75,19 +75,3 @@ INSERT INTO immagine (articolo_id, dati) VALUES
 (11, X'00'),
 (12, X'00');
 
--- =========================
--- CARRELLI (placeholder)
--- =========================
-	
-INSERT INTO carrello(id) VALUES
-(1),
-(2),
-
--- =========================
--- UTENTI (placeholder)
--- =========================
-
-INSERT INTO utente (email, nome, cognome, data_nascita, password, telefono, carrello_id) VALUES
-('mario.rossi@gmail.com', 'Mario', 'Rossi', '1995-04-12', 'password123', '3331112223', 1),
-('luca.bianchi@gmail.com', 'Luca', 'Bianchi', '1998-09-25', 'password123', '3345556677', 2),
-
