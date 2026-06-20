@@ -22,6 +22,7 @@ public class ImageServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			return;
 		}
+
 		try {
 			ImmagineDAO immagineDAO = new ImmagineDAO();
 			Immagine immagine = immagineDAO.findById(Integer.parseInt(id));
@@ -29,10 +30,13 @@ public class ImageServlet extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			ServletOutputStream out = response.getOutputStream();
-			response.setContentType("image/png");
+
 			byte[] dati = immagine.getDati();
+
+			response.setContentType("image/png");
 			response.setContentLength(dati.length);
+
+			ServletOutputStream out = response.getOutputStream();
 			out.write(dati);
 			out.flush();
 		} catch (NumberFormatException e) {

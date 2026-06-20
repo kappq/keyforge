@@ -12,10 +12,13 @@ public class Articolo implements Serializable {
 	private String brand;
 	private BigDecimal prezzo;
 	private int disponibilita;
+    private int dimensione;
+    private int peso;
+    private String layout;
 	
 	public Articolo() {}
 
-	public Articolo(int id, String nome, String descrizione, String brand, BigDecimal prezzo, int disponibilita) {
+	public Articolo(int id, String nome, String descrizione, String brand, BigDecimal prezzo, int disponibilita, int dimensione, int peso, String layout) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -23,6 +26,9 @@ public class Articolo implements Serializable {
 		this.brand = brand;
 		this.prezzo = prezzo;
 		this.disponibilita = disponibilita;
+        this.dimensione = dimensione;
+        this.peso = peso;
+        this.layout = layout;
 	}
 
 	public int getId() { return id; }
@@ -42,4 +48,13 @@ public class Articolo implements Serializable {
 
 	public int getDisponibilita() { return disponibilita; }
 	public void setDisponibilita(int disponibilita) { this.disponibilita = disponibilita; }
+
+    public int getDimensione() { return dimensione; }
+    public void setDimensione(int dimensione) { this.dimensione = dimensione; }
+
+    public int getPeso() { return peso; }
+    public void setPeso(int peso) { this.peso = peso; }
+
+    public String getLayout() { return layout; }
+    public void setLayout(String layout) { this.layout = layout; }
 }
