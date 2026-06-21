@@ -1,4 +1,5 @@
 package keyforge;
+import org.json.JSONObject;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,9 +38,9 @@ public class CheckEmailServlet extends HttpServlet {
 		}
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        response.getWriter().write(
-            "{\"exists\":" + exists + "}");
+        JSONObject obj = new JSONObject();
+        obj.put("errore", exists);
+        response.getWriter().write(obj.toString());
 	}
 
 	/**

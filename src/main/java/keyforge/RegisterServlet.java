@@ -38,6 +38,7 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		// -- Lettura parametri --
 	    String name = request.getParameter("nome");
 	    String surname = request.getParameter("cognome");
@@ -45,29 +46,39 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 	    String phone = request.getParameter("telefono");
 	    String password = request.getParameter("password");
-	    // -- Eccezioni size -- 
-	    if(name == null || name.length() > 100 ) {
-	    	throw new IllegalArgumentException("Invalid name");
-	    }
-	    if(surname == null || surname.length() > 100 ) {
-	    	throw new IllegalArgumentException("Invalid surname");
-	    }
-	    if(phone == null || phone.length() != 10 ) {
-	    	throw new IllegalArgumentException("Invalid phone");
-	    }
-	    if(email == null || email.length() > 255) {
-	    	throw new IllegalArgumentException("Invalid email");
-	    }
-	    if(password == null || password.length() > 255 || password.length() < 8) {
-	    	throw new IllegalArgumentException("Invalid password");
-	    }
-	    boolean exists = false;
-	    // -- trim fields -- 
+
+        if(name == null || surname == null || email == null || password == null) {
+        	forwardWithError(request, response, "compilare tutti i campi");
+        	return;
+        }
         name     = name.trim();
         surname  = surname.trim();
         bornDate = bornDate.trim();
         email    = email.trim().toLowerCase();
         phone    = phone.trim();
+
+	    // -- Eccezioni size -- 
+        if (name.isEmpty() || name.length() > 100) {
+            forwardWithError(request, response, "Nome non valido.");
+            return;
+        }
+        if (surname.isEmpty() || surname.length() > 100) {
+            forwardWithError(request, response, "Cognome non valido.");
+            return;
+        }
+        if (!phone.matches("\\d{10}")) {
+            forwardWithError(request, response, "Numero di telefono non valido.");
+            return;
+        }
+        if (!email.matches("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-z]{2,}$") || email.length() > 255) {
+            forwardWithError(request, response, "Email non valida.");
+            return;
+        }
+        if (password.length() < 8 || password.length() > 255) {
+            forwardWithError(request, response, "Password non valida (min. 8 caratteri).");
+            return;
+        }
+	    boolean exists = false;
 	    try {
 	    	exists = UtenteDAO.emailExists(email);
 	    }catch(Exception e) {
@@ -91,8 +102,15 @@ public class RegisterServlet extends HttpServlet {
 	    }catch(Exception e) {
 	    	 e.printStackTrace();
 	    	    request.setAttribute("errorMessage", "Errore durante la registrazione.");
-	    	    request.getRequestDispatcher("/register.jsp").forward(request, response);
+	    	    request.getRequestDispatcher("/common/registrazione.jsp").forward(request, response);
 	    }
 	}
 
+	private void forwardWithError(HttpServletRequest request,
+								   HttpServletResponse response,
+								   String message)
+			throws ServletException, IOException {
+		request.setAttribute("errorMessage", message);
+		request.getRequestDispatcher("/common/registrazione.jsp").forward(request, response);
+	}
 }

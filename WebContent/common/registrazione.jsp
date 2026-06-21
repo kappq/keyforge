@@ -9,6 +9,10 @@
     <script src="${pageContext.request.contextPath}/js/checkEmail.js"></script>
 </head>
 <body data-context-path="${pageContext.request.contextPath}">
+	<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
+	<% if (errorMessage != null) { %>
+	  <p><%= errorMessage %></p>
+	<% } %>
     <h2>Login</h2>
 
     <form id="lForm" method="post" action="${pageContext.request.contextPath}/RegisterServlet">
