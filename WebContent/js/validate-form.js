@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 /*validazione input*/
 function checkNameSurname(inpt) {
-	const rules = [{regex: /^[A-Za-z]+$/, message: "No name/surname inserted."}];
+	const rules = [{regex: /^[A-Za-z ]+$/, message: "No name/surname inserted."}];
 	let errors = [];
 	for(const rule of rules) {
 		if(!rule.regex.test(inpt.value)) {
