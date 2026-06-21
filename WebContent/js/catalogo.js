@@ -1,4 +1,4 @@
-const filtri = ["prezzo-min", "prezzo-max", "disponibilita"];
+const filtri = ["nome", "prezzo-min", "prezzo-max", "disponibilita"];
 let debounceTimer;
 
 filtri.forEach(id => {
@@ -11,10 +11,14 @@ filtri.forEach(id => {
 async function filtra() {
 	const params = new URLSearchParams();
 	
+	const nome = document.getElementById("nome").value;
 	const prezzoMin = document.getElementById("prezzo-min").value;
 	const prezzoMax = document.getElementById("prezzo-max").value;
 	const disponibilita = document.getElementById("disponibilita").value;
 	
+	if (nome) {
+		params.set("nome", nome);
+	}
 	if (prezzoMin) {
 		params.set("prezzo-min", prezzoMin);
 	}
@@ -59,6 +63,7 @@ function renderGriglia(articoli) {
 }
 
 function clearFilters() {
+	document.getElementById("nome").value = "";
 	document.getElementById("prezzo-min").value = "";
 	document.getElementById("prezzo-max").value = "";
 	document.getElementById("disponibilita").value = "0";

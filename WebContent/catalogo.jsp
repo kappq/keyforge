@@ -10,6 +10,7 @@
 </head>
 <body>
 <div id="filtri">
+	<input type="text" id="nome" placeholder="Nome articolo">
 	<input type="number" id="prezzo-min" placeholder="Prezzo minimo">
 	<input type="number" id="prezzo-max" placeholder="Prezzo massimo">
 	<select id="disponibilita">

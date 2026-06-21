@@ -19,6 +19,11 @@ public class ArticoliServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nome = request.getParameter("nome");
+		if (nome == null) {
+			nome = "";
+		}
+
 		String prezzoMinString = request.getParameter("prezzo-min");
 		int prezzoMin = prezzoMinString != null ? Integer.parseInt(prezzoMinString) : 0;
 
@@ -30,13 +35,13 @@ public class ArticoliServlet extends HttpServlet {
 		
 		try {
 			ArticoloDAO articoloDAO = new ArticoloDAO();
-			Collection<Articolo> articoli = articoloDAO.findFiltered(prezzoMin, prezzoMax, disponibilita);
+			Collection<Articolo> articoli = articoloDAO.findFiltered(nome, prezzoMin, prezzoMax, disponibilita);
 
 			JSONArray arr = new JSONArray(articoli.toArray());
-			
+
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			
+
 			PrintWriter out = response.getWriter();
 			out.write(arr.toString());
 			out.flush();

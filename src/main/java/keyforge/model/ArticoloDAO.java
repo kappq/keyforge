@@ -99,12 +99,13 @@ public class ArticoloDAO implements DAO<Articolo> {
 		}
 	}
 
-	public Collection<Articolo> findFiltered(int prezzoMin, int prezzoMax, int disponibilita) throws SQLException {
+	public Collection<Articolo> findFiltered(String nome, int prezzoMin, int prezzoMax, int disponibilita) throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE ? <= prezzo AND prezzo <= ? AND disponibilita >= ?");
-			stmt.setInt(1, prezzoMin);
-			stmt.setInt(2, prezzoMax);
-			stmt.setInt(3, disponibilita);
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE LOWER(nome) LIKE LOWER(?) AND ? <= prezzo AND prezzo <= ? AND disponibilita >= ?");
+			stmt.setString(1, "%" + nome + "%");
+			stmt.setInt(2, prezzoMin);
+			stmt.setInt(3, prezzoMax);
+			stmt.setInt(4, disponibilita);
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Articolo> list = new ArrayList<Articolo>();
 			while (rs.next()) {
