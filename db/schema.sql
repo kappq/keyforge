@@ -8,7 +8,10 @@ CREATE TABLE articolo (
 	descrizione TEXT NOT NULL,
 	brand VARCHAR(255) NOT NULL,
 	prezzo DECIMAL(10, 2) NOT NULL,
-	disponibilita INT UNSIGNED NOT NULL
+	disponibilita INT UNSIGNED NOT NULL,
+	dimensione INT NOT NULL, -- in millimetri
+	peso INT NOT NULL, -- in grammi
+	layout VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE immagine (
@@ -18,33 +21,6 @@ CREATE TABLE immagine (
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
 );
 
-CREATE TABLE tastiera (
-	articolo_id INT PRIMARY KEY,
-	dimensione INT NOT NULL, -- in millimetri
-	peso INT NOT NULL, -- in grammi
-	layout VARCHAR(255) NOT NULL,
-	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
-);
-
-CREATE TABLE switch (
-	articolo_id INT PRIMARY KEY,
-	compatibilita VARCHAR(255) NOT NULL,
-	attivazione INT NOT NULL, -- in milligrammi
-	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
-);
-
-CREATE TABLE keycap (
-	articolo_id INT PRIMARY KEY,
-	materiale VARCHAR(255) NOT NULL,
-	profilo VARCHAR(255) NOT NULL,
-	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
-);
-
-CREATE TABLE accessorio (
-	articolo_id INT PRIMARY KEY,
-	tipo VARCHAR(255) NOT NULL,
-	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
-);
 CREATE TABLE carrello (
     id INT AUTO_INCREMENT PRIMARY KEY,
     utente_id INT NOT NULL UNIQUE,
