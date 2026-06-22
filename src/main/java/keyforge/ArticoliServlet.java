@@ -14,7 +14,7 @@ import org.json.JSONArray;
 
 import keyforge.model.*;
 
-@WebServlet("/articoli")
+@WebServlet("/common/ArticoliServlet")
 public class ArticoliServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

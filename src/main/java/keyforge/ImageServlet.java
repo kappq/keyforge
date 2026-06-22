@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import keyforge.model.*;
 
-@WebServlet("/immagine")
+@WebServlet("/common/ImageServlet")
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

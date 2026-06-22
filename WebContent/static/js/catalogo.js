@@ -1,4 +1,5 @@
 const filtri = ["nome", "prezzo-min", "prezzo-max", "disponibilita"];
+
 let debounceTimer;
 
 filtri.forEach(id => {
@@ -29,7 +30,7 @@ async function filtra() {
 		params.set("disponibilita", disponibilita);
 	}
 	
-	const res = await fetch(`${contextPath}/articoli?${params}`);
+	const res = await fetch(`${contextPath}/common/ArticoliServlet?${params}`);
 	if (!res.ok) {
 		throw new Error(`Errore interno: ${res.status}`);
 	}
@@ -48,7 +49,7 @@ function renderGriglia(articoli) {
 
 	griglia.innerHTML = articoli.map(a => `
 		<div class="articolo">
-			<img src="${contextPath}/immagine?articoloId=${a.id}" onerror="this.src = 'https://placehold.co/320x200'">
+			<img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src = 'https://placehold.co/320x200'">
 			<div class="spaced">
 				<b>${a.nome}</b>
 				<span>${a.brand}</span>
