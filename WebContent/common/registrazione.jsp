@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
-    <script src="${pageContext.request.contextPath}/js/validate-form.js"></script>
-    <script src="${pageContext.request.contextPath}/js/checkEmail.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/error.css">
 </head>
-<body data-context-path="${pageContext.request.contextPath}">
+<body>
 	<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
 	<% if (errorMessage != null) { %>
-	  <p><%= errorMessage %></p>
+		<p><%= errorMessage %></p>
 	<% } %>
-    <h2>Login</h2>
 
-    <form id="lForm" method="post" action="${pageContext.request.contextPath}/RegisterServlet">
+    <h2>Registrazione</h2>
+
+    <form id="lForm" method="post" action="${pageContext.request.contextPath}/common/RegisterServlet">
 	    <label for="nome">Nome:</label><br>
 	    <input type="text" id="nome" name="nome" required><br><br>
 	
@@ -33,10 +31,19 @@
 	
 	    <label for="password">Password:</label><br>
 	    <input type="password" id="password" name="password" placeholder="Almeno 6 caratteri"required><br><br>
+
 		<ul id="errorList"></ul>
 		<span id="emailMsg"></span>
+
 		<br>
+
 	    <button type="submit">Registrati</button>
     </form>
+
+	<script>
+		const contextPath = "<%= request.getContextPath() %>";
+	</script>
+	<script src="${pageContext.request.contextPath}/static/js/validate-form.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/check-email.js"></script>
 </body>
 </html>

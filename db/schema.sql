@@ -21,12 +21,6 @@ CREATE TABLE immagine (
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id) ON DELETE CASCADE
 );
 
-CREATE TABLE carrello (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    utente_id INT NOT NULL UNIQUE,
-    FOREIGN KEY (utente_id) REFERENCES utente(id) ON DELETE CASCADE
-);
-
 CREATE TABLE utente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -36,6 +30,12 @@ CREATE TABLE utente (
     password VARCHAR(255) NOT NULL,
     telefono VARCHAR(20)
 );
+
+CREATE TABLE carrello (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utente_id INT NOT NULL UNIQUE,
+    FOREIGN KEY (utente_id) REFERENCES utente(id) ON DELETE CASCADE
+); 
 
 CREATE TABLE inclusione (
     carrello_id INT NOT NULL,

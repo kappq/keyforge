@@ -83,11 +83,23 @@ public class UtenteDAO implements DAO<Utente> {
             stmt.executeUpdate();
         }
     }
+    
+    public Utente findByEmail(String email) throws SQLException {
+    	try (Connection conn = ConnectionManager.getConnection()) {
+    		PreparedStatement stmt = conn.prepareStatement("SELECT * FROM utente WHERE email = ?");
+    		stmt.setString(1, email);
+    		ResultSet rs = stmt.executeQuery();
+    		if (rs.next()) {
+    			return extractUtente(rs);
+    		} else {
+    			return null;
+    		}
+    	}
+    }
 
     public static boolean emailExists(String email) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt =
-                conn.prepareStatement("SELECT 1 FROM utente WHERE email = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM utente WHERE email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
