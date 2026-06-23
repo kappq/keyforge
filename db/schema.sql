@@ -44,3 +44,24 @@ CREATE TABLE inclusione (
     FOREIGN KEY (carrello_id) REFERENCES carrello(id) ON DELETE CASCADE,
     FOREIGN KEY (articolo_id) REFERENCES articolo(id)
 );
+
+CREATE TABLE ordine (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    utente_id INT,
+    stato ENUM('in_attesa', 'confermato', 'spedito', 'consegnato', 'annullato') NOT NULL DEFAULT 'in_attesa',
+    indirizzo_spedizione VARCHAR(500) NOT NULL,
+    tracking VARCHAR(100),
+    note TEXT,
+    data_ordine DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (utente_id) REFERENCES utente(id) ON DELETE SET NULL
+);
+
+CREATE TABLE pagamento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ordine_id INT UNIQUE, 
+    stato ENUM('in_attesa', 'completato', 'fallito', 'rimborsato') NOT NULL DEFAULT 'in_attesa',
+    importo DECIMAL(10, 2) NOT NULL,
+    valuta VARCHAR(3) NOT NULL DEFAULT 'EUR',  
+    data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ordine_id) REFERENCES ordine(id) ON DELETE SET NULL
+);
