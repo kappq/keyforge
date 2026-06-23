@@ -66,7 +66,6 @@ public class RegisterServlet extends HttpServlet {
 	    } catch (SQLException e) {
 	    	e.printStackTrace();
 	    }
-
 	    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 	    try {
 	    	Date date = Date.valueOf(bornDate);

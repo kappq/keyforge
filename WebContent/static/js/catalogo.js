@@ -56,11 +56,25 @@ function renderGriglia(articoli) {
 			</div>
 			<p>${a.descrizione}</p>
 			<div class="spaced">
+
 				<div>€ ${a.prezzo.toFixed(2)}</div>
 				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
+				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
+
 			</div>
 		</div>
 	`).join("");
+}
+async function addToCart(articoloId) {
+    const res = await fetch(`${contextPath}/common/AddToCartServlet`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `articoloId=${articoloId}&quantita=1`
+    });
+
+    if (res.ok) {
+        console.log("Aggiunto al carrello");
+    }
 }
 
 function clearFilters() {
