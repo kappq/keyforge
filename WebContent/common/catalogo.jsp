@@ -9,6 +9,10 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 <body>
+	<form method="post" action="<%= request.getContextPath() %>/common/EmptyCartServlet">
+		<button type="submit">Svuota Carrello</button>
+	</form>
+
 	<div id="filtri">
 		<input type="text" id="nome" placeholder="Nome articolo">
 		<input type="number" id="prezzo-min" placeholder="Prezzo minimo">
@@ -17,7 +21,7 @@
 			<option value="0">Tutti</option>
 			<option value="1">Disponibile</option>
 		</select>
-		<button onclick="clearFilters()">Pulisci</button>
+		<button onclick="clearFilters()">Reset Filtri</button>
 	</div>
 
 	<div id="griglia" class="grid"></div>

@@ -16,8 +16,7 @@ public class Ordine implements Serializable {
 
     public Ordine() {}
 
-    public Ordine(int id, int utenteId, String stato, String indirizzoSpedizione,
-                  String tracking, String note, Timestamp dataOrdine) {
+    public Ordine(int id, int utenteId, String stato, String indirizzoSpedizione, String tracking, String note, Timestamp dataOrdine) {
         this.id = id;
         this.utenteId = utenteId;
         this.stato = stato;
@@ -29,16 +28,22 @@ public class Ordine implements Serializable {
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+
     public int getUtenteId() { return utenteId; }
     public void setUtenteId(int utenteId) { this.utenteId = utenteId; }
+
     public String getStato() { return stato; }
     public void setStato(String stato) { this.stato = stato; }
+
     public String getIndirizzoSpedizione() { return indirizzoSpedizione; }
     public void setIndirizzoSpedizione(String indirizzoSpedizione) { this.indirizzoSpedizione = indirizzoSpedizione; }
+
     public String getTracking() { return tracking; }
     public void setTracking(String tracking) { this.tracking = tracking; }
+
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
     public Timestamp getDataOrdine() { return dataOrdine; }
     public void setDataOrdine(Timestamp dataOrdine) { this.dataOrdine = dataOrdine; }
 }

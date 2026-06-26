@@ -7,22 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ImmagineDAO implements DAO<Immagine> {
+public class ImmagineDAO implements DAO<Immagine, Integer> {
     @Override
-    public Immagine findById(int id) throws SQLException {
+    public Immagine findById(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM immagine WHERE id = ?");
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				return new Immagine(
-					rs.getInt("id"),
-					rs.getInt("articolo_id"),
-					rs.getBytes("dati")
-				);
-			} else {
-				return null;
-			}
+			return rs.next() ? extractImmagine(rs) : null;
         }
     }
 
@@ -33,11 +25,7 @@ public class ImmagineDAO implements DAO<Immagine> {
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Immagine> list = new ArrayList<>();
 			while (rs.next()) {
-				list.add(new Immagine(
-					rs.getInt("id"),
-					rs.getInt("articolo_id"),
-					rs.getBytes("dati")
-				));
+				list.add(extractImmagine(rs));
 			}
 			return list;
         }
@@ -65,7 +53,7 @@ public class ImmagineDAO implements DAO<Immagine> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement("DELETE FROM immagine WHERE id = ?");
 			stmt.setInt(1, id);
@@ -80,13 +68,17 @@ public class ImmagineDAO implements DAO<Immagine> {
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Immagine> list = new ArrayList<>();
 			while (rs.next()) {
-				list.add(new Immagine(
-					rs.getInt("id"),
-					rs.getInt("articolo_id"),
-					rs.getBytes("dati")
-				));
+				list.add(extractImmagine(rs));
 			}
 			return list;
         }
+    }
+    
+    private Immagine extractImmagine(ResultSet rs) throws SQLException {
+    	return new Immagine(
+			rs.getInt("id"),
+			rs.getInt("articolo_id"),
+			rs.getBytes("dati")
+		);
     }
 }

@@ -30,12 +30,12 @@ async function filtra() {
 		params.set("disponibilita", disponibilita);
 	}
 	
-	const res = await fetch(`${contextPath}/common/ArticoliServlet?${params}`);
+	const res = await fetch(`${contextPath}/common/ArticoliServlet?${params.toString()}`);
 	if (!res.ok) {
 		throw new Error(`Errore interno: ${res.status}`);
 	}
-	const articoli = await res.json();
 
+	const articoli = await res.json();
 	renderGriglia(articoli);
 }
 
@@ -56,20 +56,23 @@ function renderGriglia(articoli) {
 			</div>
 			<p>${a.descrizione}</p>
 			<div class="spaced">
-
 				<div>€ ${a.prezzo.toFixed(2)}</div>
 				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
 				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
-
 			</div>
 		</div>
 	`).join("");
 }
+
 async function addToCart(articoloId) {
+	const params = new URLSearchParams();
+	params.set("articoloId", articoloId);
+	params.set("quantita", 1);
+
     const res = await fetch(`${contextPath}/common/AddToCartServlet`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `articoloId=${articoloId}&quantita=1`
+        body: params.toString(),
     });
 
     if (res.ok) {
