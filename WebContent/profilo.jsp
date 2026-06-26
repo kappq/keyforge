@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="keyforge.model.Utente" %>
-<% Utente utente = (Utente)session.getAttribute("utente"); %>
+<%@ page import="keyforge.model.Utente,keyforge.model.UtenteDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +7,11 @@
 	<title>Profilo</title>
 </head>
 <body>
+	<% Integer utenteId = (Integer)session.getAttribute("utenteId"); %>
+
+	<% UtenteDAO utenteDAO = new UtenteDAO(); %>
+	<% Utente utente = utenteDAO.findById(utenteId); %>
+
 	<h1>Benvenuto, <%= utente.getNome() %>!</h1>
 	
 	<p>Email: <%= utente.getEmail() %></p>

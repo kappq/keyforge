@@ -20,7 +20,7 @@ public class AuthFilter extends HttpFilter {
 		HttpServletResponse res = (HttpServletResponse)response;
 
 		HttpSession session = req.getSession(false);
-		boolean isLoggedIn = session != null && session.getAttribute("utente") != null;
+		boolean isLoggedIn = session != null && session.getAttribute("utenteId") != null;
 
 		String uri = req.getRequestURI();
 		String contextPath = req.getContextPath();

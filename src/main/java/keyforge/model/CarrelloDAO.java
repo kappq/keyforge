@@ -8,10 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CarrelloDAO implements DAO<Carrello> {
-
+public class CarrelloDAO implements DAO<Carrello, Integer> {
     @Override
-    public Carrello findById(int id) throws SQLException {
+    public Carrello findById(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM carrello WHERE id = ?");
             stmt.setInt(1, id);
@@ -70,7 +69,7 @@ public class CarrelloDAO implements DAO<Carrello> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM carrello WHERE id = ?");
             stmt.setInt(1, id);

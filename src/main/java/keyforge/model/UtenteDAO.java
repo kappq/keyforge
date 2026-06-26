@@ -4,10 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UtenteDAO implements DAO<Utente> {
-
+public class UtenteDAO implements DAO<Utente, Integer> {
     @Override
-    public Utente findById(int id) throws SQLException {
+    public Utente findById(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt =
                 conn.prepareStatement("SELECT * FROM utente WHERE id = ?");
@@ -75,7 +74,7 @@ public class UtenteDAO implements DAO<Utente> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt =
                 conn.prepareStatement("DELETE FROM utente WHERE id = ?");
