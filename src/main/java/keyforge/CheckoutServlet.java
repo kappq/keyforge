@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import keyforge.model.Ordine;
 
-@WebServlet("/CheckoutServlet")
+@WebServlet("/user/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,6 +44,6 @@ public class CheckoutServlet extends HttpServlet {
 
 		session.setAttribute("ordine", ordine);
 
-		request.getRequestDispatcher("/riepilogo.jsp").forward(request, response);
+		request.getRequestDispatcher("/user/riepilogo.jsp").forward(request, response);
 	}
 }
