@@ -9,6 +9,10 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 <body>
+	<a href="<%= request.getContextPath() %>/common/carrello.jsp">
+		<img src="<%= request.getContextPath() %>/images/carrello.jsp">	
+	</a>
+
 	<div id="filtri">
 		<input type="text" id="nome" placeholder="Nome articolo">
 		<input type="number" id="prezzo-min" placeholder="Prezzo minimo">

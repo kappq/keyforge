@@ -60,7 +60,7 @@ function renderGriglia(articoli) {
 				<div>€ ${a.prezzo.toFixed(2)}</div>
 				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
 				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
-
+				<div id="${a.id}"></div>
 			</div>
 		</div>
 	`).join("");
@@ -71,6 +71,9 @@ async function addToCart(articoloId) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `articoloId=${articoloId}&quantita=1`
     });
+	setTimeout(() => {
+		console.log("AGGINTO");
+	}, 1000); 
 
     if (res.ok) {
         console.log("Aggiunto al carrello");
