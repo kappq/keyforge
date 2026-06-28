@@ -1,7 +1,151 @@
-body {
-	font-family: sans-serif;
-	color: #383D3B;
+@charset "UTF-8";
+
+:root {
+	--primary: #7FD1B9;
+	--secondary: #67C4E0;
+	--bg: #FFFAFA;
+	--alt-bg: #CFCFCF;
+	--text: #383D3B;
+	--text-sec: #7D8783;
+	--red: #BC4B51;
+	--green: #82C09A;
 }
+
+html {
+	font-family: "Space Grotesk", sans-serif;
+}
+
+/* Alcuni elementi, specialmente gli elementi di controllo dei form non eridatano il font */
+button,
+input,
+optgroup,
+select,
+textarea {
+	font: inherit;
+}
+
+.page {
+	background: var(--bg);
+	min-height: 480px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 1rem;
+	color: var(--text);
+}
+
+.card {
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 12px;
+	padding: 2.5rem 2rem;
+	width: 100%;
+	max-width: 420px;
+}
+
+.card h1 {
+	font-size: 22px;
+	font-weight: 500;
+	text-align: center;
+	margin: 0 0 1.75rem;
+	color: var(--text);
+}
+
+.field {
+	margin-bottom: 1.25rem;
+}
+
+.field label {
+	display: block;
+	font-size: 14px;
+	color: var(--text);
+	margin-bottom: 6px;
+}
+
+.field input {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--bg);
+	box-sizing: border-box;
+	outline: none;
+	transition: border-color 0.15s;
+}
+
+.field input:focus {
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px rgba(127,209,185,0.2);
+}
+
+.field input::placeholder {
+	color: var(--text-sec);
+}
+
+.row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.25rem;
+	font-size: 13px;
+}
+
+.check {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--text-sec);
+}
+
+.link {
+	color: var(--secondary);
+	text-decoration: none;
+	font-size: 13px;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.btn {
+	width: 100%;
+	padding: 12px;
+	background: var(--primary);
+	color: var(--text);
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: background 0.15s;
+}
+
+.btn:hover {
+	background: #6BBFA6;
+}
+
+.btn:active {
+	background: #5aad93;
+}
+
+.form-footer {
+	text-align: center;
+	margin-top: 1.25rem;
+	font-size: 13px;
+	color: var(--text-sec);
+}
+
+.field-error {
+	font-size: 12px;
+	margin-top: 5px;
+	color: #BC4B51;
+}
+
+/* old CSS */
 
 .grid {
 	display: grid;

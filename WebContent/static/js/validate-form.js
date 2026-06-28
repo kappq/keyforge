@@ -1,130 +1,100 @@
-document.addEventListener("DOMContentLoaded", function() {
-	var form = document.getElementById("lForm");
-	form.addEventListener("submit", function(event) {
-		document.getElementById("errorList").innerHTML = "";
-		event.preventDefault();
-		var valid = true;
-		var name = document.getElementsByName("nome")[0];
-		if(checkNameSurname(name).length) {
-			valid = false;
-			name.classList.add("error");
-		}else {
-			name.classList.remove("error");
+document.addEventListener("DOMContentLoaded", () => {
+	const nome = document.getElementById("nome");
+	nome.onblur = () => {
+		const nomeError = document.getElementById("nome-error");
+		if (nome.value.trim().length === 0) {
+			nomeError.textContent = "Inserire il nome";
+		} else {
+			nomeError.textContent = "";
 		}
-		var surname = document.getElementsByName("cognome")[0];
-		if(checkNameSurname(surname).length) {
-			valid = false;
-			surname.classList.add("error");
-		}else {
-			surname.classList.remove("error");
+	};
+
+	const cognome = document.getElementById("cognome");
+	cognome.onblur = () => {
+		const cognomeError = document.getElementById("cognome-error");
+		if (cognome.value.trim().length === 0) {
+			cognomeError.textContent = "Inserire il cognome";
+		} else {
+			cognomeError.textContent = "";
 		}
-		var email = document.getElementsByName("email")[0];
-		if(checkEmail(email).length) {
-			valid = false;
-			email.classList.add("error");
+	};
+
+	const email = document.getElementById("email");
+	email.onblur = () => {
+		const emailError = document.getElementById("email-error");
+		const rules = [{ regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, errorMessage: "Email invalida" }];
+		for (const rule of rules) {
+			if (!rule.regex.test(email.value)) {
+				emailError.textContent = rule.errorMessage;
+				return;
+			}
 		}
-		else {
-			email.classList.remove("error");
+		const params = new URLSearchParams();
+		params.set("email", email.value);
+        fetch(contextPath + "/common/CheckEmailServlet?" + params.toString())
+            .then(res => res.json())
+            .then(data => {
+                if (data.exists) {
+					emailError.textContent = "Email non disponibile";
+				} else {
+					emailError.textContent = "";
+				}
+            })
+            .catch(error => {
+				console.error(error);
+				emailError.textContent = "";
+			});
+	};
+
+	const dataNascita = document.getElementById("data-nascita");
+	dataNascita.onblur = () => {
+		const dataNascitaError = document.getElementById("data-nascita-error");
+		if (dataNascita.value.trim().length === 0) {
+			dataNascitaError.textContent = "Inserire la data di nascita";
+		} else {
+			dataNascitaError.textContent = "";
 		}
-		var date = document.getElementsByName("dataNascita")[0];
-		if(checkDate(date).length) {
-			valid = false;
-			date.classList.add("error");
-		}else {
-			date.classList.remove("error");
+	};
+
+	const telefono = document.getElementById("telefono");
+	telefono.onblur = () => {
+		const telefonoError = document.getElementById("telefono-error");
+		const rules = [{ regex: /^([0-9]{10})$/, message: "Il numero di telefono deve essere una stringa di 10 cifre" }];
+		for (const rule of rules) {
+			if (!rule.regex.test(telefono.value)) {
+				telefonoError.textContent = rule.message;
+				return;
+			}
 		}
-		var phone = document.getElementsByName("telefono")[0];
-		if(checkPhone(phone).length) {
-			valid = false;
-			phone.classList.add("error");
-		}else {
-			phone.classList.remove("error");
-		}
-		var password = document.getElementsByName("password")[0];
-		if(checkPassword(password).length) {
-			valid = false;
-			password.classList.add("error");
-		}else {
-			password.classList.remove("error");
-		}
-		if (!valid) {
-			return;
-		}
-		form.submit();
-	});
+		telefonoError.textContent = "";
+	};
 	
+	const password = document.getElementById("password");
+	password.onblur = () => {
+		const passwordError = document.getElementById("password-error");
+		const rules = [
+			{ regex: /.{8,}/, message: "La password deve contenere almeno 8 caratteri" },
+			{ regex: /[a-z]/, message: "La password deve contenere almeno una lettera minuscola" },
+			{ regex: /[A-Z]/, message: "La password deve contenere almeno una lettera maiuscola" },
+			{ regex: /\d/, message: "La password deve contenere almeno un numero" },
+			{ regex: /[^A-Za-z0-9]/, message: "La password deve contenere almeno un carattere speciale" },
+		];
+		for (const rule of rules) {
+			if (!rule.regex.test(password.value)) {
+				passwordError.textContent = rule.message;
+				return;
+			}
+		}
+		passwordError.textContent = "";
+	};
+
+	const confermaPassword = document.getElementById("conferma-password");
+	confermaPassword.onblur = () => {
+		const confermaPasswordError = document.getElementById("conferma-password-error");
+		if (confermaPassword.value != password.value) {
+			confermaPasswordError.textContent = "Le password devono corrispondere";
+		} else {
+			confermaPasswordError.textContent = "";
+		}
+	};
 });
-/*validazione input*/
-function checkNameSurname(inpt) {
-	const rules = [{regex: /^[A-Za-z ]+$/, message: "No name/surname inserted."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
-		}
-	}
-	addErrors("Name/surname", errors);	
-	return errors;
-}
-function checkEmail(inpt) {
-    const rules = [{regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message:"Invalid format."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
-		}
-	}
-	addErrors("Email", errors);	
-	return errors;
-}
-function checkPhone(inpt) {
-	const rules = [{regex: /^([0-9]{10})$/, message: "10 digits."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
-		}
-	}
-	addErrors("Phone", errors);	
-	return errors;
-}
-function checkPassword(inpt) {
-	const rules = [
-	  { regex: /.{8,}/, message: "At least 8 characters." },
-	  { regex: /[a-z]/, message: "One lowercase letter." },
-	  { regex: /[A-Z]/, message: "One uppercase letter." },
-	  { regex: /\d/, message: "One number." },
-	  { regex: /[^A-Za-z0-9]/, message: "One special character." }
-	];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
-		}
-	}
-	addErrors("Password", errors);
-	return errors;
-}
-function checkDate(inpt) {
-    const errors = [];
-
-    const d = new Date(inpt.value);
-    const start = new Date("1920-01-01");
-    const today = new Date();
-
-    if (d < start || d > today) {
-        errors.push("Date must be between 1920 and today.");
-    }
-
-    addErrors("Date", errors);
-    return errors;
-}
-/*aggiunta errori alla UI*/
-function addErrors(fieldName, errors) {
-  	let errorList = document.getElementById("errorList");
-	errors.forEach(msg => {
-	    const li = document.createElement("li");
-	    li.textContent = `${fieldName}: ${msg}`;
-	    errorList.appendChild(li);
-  	});
-}
