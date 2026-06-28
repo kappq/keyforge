@@ -23,7 +23,7 @@ public class AuthFilter extends HttpFilter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 
-		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession(true);
 		Integer utenteId = (Integer)session.getAttribute("utenteId");
 
 		try {
