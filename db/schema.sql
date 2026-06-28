@@ -28,7 +28,8 @@ CREATE TABLE utente (
     cognome VARCHAR(100) NOT NULL,
     data_nascita DATE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    telefono VARCHAR(20)
+    telefono VARCHAR(20),
+    is_admin BOOLEAN DEFAULT false
 );
 
 CREATE TABLE carrello (
@@ -64,4 +65,13 @@ CREATE TABLE pagamento (
     valuta VARCHAR(3) NOT NULL DEFAULT 'EUR',  
     data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ordine_id) REFERENCES ordine(id) ON DELETE SET NULL
+);
+
+CREATE TABLE comprensione (
+	ordine_id INT NOT NULL,
+	articolo_id INT NOT NULL,
+	quantita INT UNSIGNED NOT NULL,
+	PRIMARY KEY (ordine_id, articolo_id),
+	FOREIGN KEY (ordine_id) REFERENCES ordine(id),
+	FOREIGN KEY (articolo_id) REFERENCES articolo(id)
 );

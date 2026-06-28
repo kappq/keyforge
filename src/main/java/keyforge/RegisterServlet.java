@@ -69,7 +69,8 @@ public class RegisterServlet extends HttpServlet {
 	    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 	    try {
 	    	Date date = Date.valueOf(bornDate);
-	    	Utente utente = new Utente(0, email, name, surname, date, hashedPassword, phone);
+
+	    	Utente utente = new Utente(0, email, name, surname, date, hashedPassword, phone, false);
 	    	UtenteDAO utenteDAO = new UtenteDAO();
 	    	utenteDAO.create(utente);
 

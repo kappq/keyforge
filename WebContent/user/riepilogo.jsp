@@ -45,7 +45,7 @@
 		
 		<p>Totale: € <%= totale %></p>
 
-		<form method="post" action="<%= request.getContextPath() %>/ConfirmOrderServlet">
+		<form method="post" action="<%= request.getContextPath() %>/user/ConfirmOrderServlet">
 			<button type="submit">Conferma Ordine</button>
 		</form>
 	<% } %>

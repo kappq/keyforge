@@ -20,7 +20,7 @@ import keyforge.model.ComprensioneDAO;
 import keyforge.model.Ordine;
 import keyforge.model.OrdineDAO;
 
-@WebServlet("/ConfirmOrderServlet")
+@WebServlet("/user/ConfirmOrderServlet")
 public class ConfirmOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 		Map<Integer, Integer> carrello = (Map<Integer, Integer>)session.getAttribute("carrello");
 		if (carrello == null) {
 			request.setAttribute("errorMessage", "Il carrello è vuoto");
-			request.getRequestDispatcher("/riepilogo.jsp");
+			request.getRequestDispatcher("/user/riepilogo.jsp");
 			return;
 		}
 
@@ -45,7 +45,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 
 				if (entry.getValue() > articolo.getDisponibilita()) {
 					request.setAttribute("errorMessage", "L'articolo \"" + articolo.getNome() + "\" non ha sufficiente disponibilità");
-					request.getRequestDispatcher("/riepilogo.jsp").forward(request, response);
+					request.getRequestDispatcher("/user/riepilogo.jsp").forward(request, response);
 					return;
 				}
 			}
@@ -69,7 +69,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 				comprensioneDAO.create(comprensione);
 			}
 
-			response.sendRedirect(request.getContextPath() + "/profilo.jsp");
+			response.sendRedirect(request.getContextPath() + "/user/profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

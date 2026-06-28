@@ -20,7 +20,7 @@
 	<p>Data di Nascita: <%= utente.getDataNascita() %></p>
 	<p>Telefono: <%= utente.getTelefono() %></p>
 
-	<form method="post" action="<%= request.getContextPath() %>/LogoutServlet">
+	<form method="post" action="<%= request.getContextPath() %>/user/LogoutServlet">
 		<button type="submit">Logout</button>
 	</form>
 </body>

@@ -98,4 +98,28 @@ public class OrdineDAO implements DAO<Ordine, Integer> {
             rs.getTimestamp("data_ordine")
         );
     }
+    
+    public Collection<Ordine> findFiltered(int utenteId, String stato, String dataInizio, String dataFine) throws SQLException {
+        try (Connection conn = ConnectionManager.getConnection()) {
+        	PreparedStatement stmt = conn.prepareStatement(
+        		"SELECT * FROM ordine WHERE (utente_id = ? OR 0 = ?) AND (stato = ? OR \"\" = ?) AND ? <= data_ordine AND data_ordine <= ? ORDER BY data_ordine DESC"
+        	);
+        	
+        	stmt.setInt(1, utenteId);
+        	stmt.setInt(2, utenteId);
+        	stmt.setString(3, stato);
+        	stmt.setString(4, stato);
+        	stmt.setString(5, dataInizio);
+        	stmt.setString(6, dataFine);
+
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<Ordine> list = new ArrayList<>();
+            while (rs.next()) {
+            	list.add(extractOrdine(rs));
+            }
+
+            return list;
+        }
+    }
 }

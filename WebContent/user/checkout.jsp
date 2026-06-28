@@ -19,7 +19,7 @@
 	<% UtenteDAO utenteDAO = new UtenteDAO(); %>
 	<% Utente utente = utenteDAO.findById(utenteId); %>
 
-	<form method="post" action="<%= request.getContextPath() %>/CheckoutServlet">
+	<form method="post" action="<%= request.getContextPath() %>/user/CheckoutServlet">
 		<fieldset>
 			<legend>Informazioni personali:</legend>
 			<p>Nome: <%= utente.getNome() %></p>
