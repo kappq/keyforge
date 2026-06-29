@@ -9,30 +9,36 @@
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
-<body class="page">
-	<form method="post" action="${pageContext.request.contextPath}/common/LoginServlet" class="card">
-		<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-		<% if (errorMessage != null) { %>
-			<p><%= errorMessage %></p>
-		<% } %>
+<body>
+	<jsp:include page="/WEB-INF/fragments/header.jsp" />
 
-		<h1>Login</h1>
-		
-		<div class="field">
-			<label for="email">Email:</label>
-			<input type="email" id="email" name="email" placeholder="m.rossi@gmail.com" required>
-		</div>
+	<main class="page">
+		<form method="post" action="${pageContext.request.contextPath}/common/LoginServlet" class="card">
+			<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
+			<% if (errorMessage != null) { %>
+				<p><%= errorMessage %></p>
+			<% } %>
 
-		<div class="field">
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" placeholder="••••••••••••" required>
-		</div>
+			<h1>Login</h1>
+			
+			<div class="field">
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" placeholder="m.rossi@gmail.com" required>
+			</div>
 
-		<button type="submit" class="btn">Login</button>
-		
-		<div class="form-footer">
-			Non hai un account? <a href="${pageContext.request.contextPath}/common/registrazione.jsp">Registrati</a>.
-		</div>
-	</form>
+			<div class="field">
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="••••••••••••" required>
+			</div>
+
+			<button type="submit" class="btn">Login</button>
+			
+			<div class="form-footer">
+				Non hai un account? <a href="${pageContext.request.contextPath}/common/registrazione.jsp">Registrati</a>.
+			</div>
+		</form>
+	</main>
+
+	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>
 </html>
