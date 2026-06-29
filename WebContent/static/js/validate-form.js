@@ -1,130 +1,144 @@
-document.addEventListener("DOMContentLoaded", function() {
-	var form = document.getElementById("lForm");
-	form.addEventListener("submit", function(event) {
-		document.getElementById("errorList").innerHTML = "";
-		event.preventDefault();
-		var valid = true;
-		var name = document.getElementsByName("nome")[0];
-		if(checkNameSurname(name).length) {
-			valid = false;
-			name.classList.add("error");
-		}else {
-			name.classList.remove("error");
-		}
-		var surname = document.getElementsByName("cognome")[0];
-		if(checkNameSurname(surname).length) {
-			valid = false;
-			surname.classList.add("error");
-		}else {
-			surname.classList.remove("error");
-		}
-		var email = document.getElementsByName("email")[0];
-		if(checkEmail(email).length) {
-			valid = false;
-			email.classList.add("error");
-		}
-		else {
-			email.classList.remove("error");
-		}
-		var date = document.getElementsByName("dataNascita")[0];
-		if(checkDate(date).length) {
-			valid = false;
-			date.classList.add("error");
-		}else {
-			date.classList.remove("error");
-		}
-		var phone = document.getElementsByName("telefono")[0];
-		if(checkPhone(phone).length) {
-			valid = false;
-			phone.classList.add("error");
-		}else {
-			phone.classList.remove("error");
-		}
-		var password = document.getElementsByName("password")[0];
-		if(checkPassword(password).length) {
-			valid = false;
-			password.classList.add("error");
-		}else {
-			password.classList.remove("error");
-		}
-		if (!valid) {
-			return;
-		}
-		form.submit();
-	});
+document.addEventListener("DOMContentLoaded", () => {
+	const nome = document.getElementById("nome");
+	const nomeError = document.getElementById("nome-error");
+	nome.onblur = () => validateNome(nome, nomeError);
+
+	const cognome = document.getElementById("cognome");
+	const cognomeError = document.getElementById("cognome-error");
+	cognome.onblur = () => validateCognome(cognome, cognomeError);
+
+	const email = document.getElementById("email");
+	const emailError = document.getElementById("email-error");
+	email.onblur = () => validateEmail(email, emailError);
+
+	const dataNascita = document.getElementById("data-nascita");
+	const dataNascitaError = document.getElementById("data-nascita-error");
+	dataNascita.onblur = () => validateDataNascita(dataNascita, dataNascitaError);
+
+	const telefono = document.getElementById("telefono");
+	const telefonoError = document.getElementById("telefono-error");
+	telefono.onblur = () => validateTelefono(telefono, telefonoError);
 	
+	const password = document.getElementById("password");
+	const passwordError = document.getElementById("password-error");
+	password.onblur = () => validatePassword(password, passwordError);
+
+	const confermaPassword = document.getElementById("conferma-password");
+	const confermaPasswordError = document.getElementById("conferma-password-error");
+	confermaPassword.onblur = () => validateConfermaPassword(confermaPassword, confermaPasswordError, password);
+	
+	const form = document.getElementsByTagName("form")[0];
+	form.onsubmit = async (event) => {
+		event.preventDefault();
+		let isValid = true;
+		isValid = isValid && validateNome(nome, nomeError);
+		isValid = isValid && validateCognome(cognome, cognomeError);
+		isValid = isValid && await validateEmail(email, emailError);
+		isValid = isValid && validateDataNascita(dataNascita, dataNascitaError);
+		isValid = isValid && validateTelefono(telefono, telefonoError);
+		isValid = isValid && validatePassword(password, passwordError);
+		isValid = isValid && validateConfermaPassword(confermaPassword, confermaPasswordError, password);
+		if (isValid) {
+			form.submit();
+		}
+	};
 });
-/*validazione input*/
-function checkNameSurname(inpt) {
-	const rules = [{regex: /^[A-Za-z ]+$/, message: "No name/surname inserted."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
+
+function validateNome(nome, nomeError) {
+	if (nome.value.trim().length === 0) {
+		nomeError.textContent = "Inserire il nome";
+		return false;
+	} else {
+		nomeError.textContent = "";
+		return true;
+	}
+}
+
+function validateCognome(cognome, cognomeError) {
+	if (cognome.value.trim().length === 0) {
+		cognomeError.textContent = "Inserire il cognome";
+		return false;
+	} else {
+		cognomeError.textContent = "";
+		return true;
+	}
+}
+
+async function validateEmail(email, emailError) {
+	const rules = [{ regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, errorMessage: "Email invalida" }];
+	for (const rule of rules) {
+		if (!rule.regex.test(email.value)) {
+			emailError.textContent = rule.errorMessage;
+			return false;
 		}
 	}
-	addErrors("Name/surname", errors);	
-	return errors;
+	const params = new URLSearchParams();
+	params.set("email", email.value);
+	try {
+		const response = await fetch(contextPath + "/common/CheckEmailServlet?" + params.toString());
+		if (!response.ok) {
+			throw new Error("Response status: " + response.status);
+		}
+		const data = await response.json();
+		if (data.exists) {
+			emailError.textContent = "Email non disponibile";
+			return false;
+		}
+		emailError.textContent = "";
+		return true;
+	} catch (error) {
+		console.log(error.message);
+		emailError.textContent = "";
+		return true;
+	}
 }
-function checkEmail(inpt) {
-    const rules = [{regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message:"Invalid format."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
+
+function validateDataNascita(dataNascita, dataNascitaError) {
+	if (dataNascita.value.trim().length === 0) {
+		dataNascitaError.textContent = "Inserire la data di nascita";
+		return false;
+	} else {
+		dataNascitaError.textContent = "";
+		return true;
+	}
+}
+
+function validateTelefono(telefono, telefonoError) {
+	const rules = [{ regex: /^([0-9]{10})$/, message: "Il numero di telefono deve essere una stringa di 10 cifre" }];
+	for (const rule of rules) {
+		if (!rule.regex.test(telefono.value)) {
+			telefonoError.textContent = rule.message;
+			return false;
 		}
 	}
-	addErrors("Email", errors);	
-	return errors;
+	telefonoError.textContent = "";
+	return true;
 }
-function checkPhone(inpt) {
-	const rules = [{regex: /^([0-9]{10})$/, message: "10 digits."}];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
-		}
-	}
-	addErrors("Phone", errors);	
-	return errors;
-}
-function checkPassword(inpt) {
+
+function validatePassword(password, passwordError) {
 	const rules = [
-	  { regex: /.{8,}/, message: "At least 8 characters." },
-	  { regex: /[a-z]/, message: "One lowercase letter." },
-	  { regex: /[A-Z]/, message: "One uppercase letter." },
-	  { regex: /\d/, message: "One number." },
-	  { regex: /[^A-Za-z0-9]/, message: "One special character." }
+		{ regex: /.{8,}/, message: "La password deve contenere almeno 8 caratteri" },
+		{ regex: /[a-z]/, message: "La password deve contenere almeno una lettera minuscola" },
+		{ regex: /[A-Z]/, message: "La password deve contenere almeno una lettera maiuscola" },
+		{ regex: /\d/, message: "La password deve contenere almeno un numero" },
+		{ regex: /[^A-Za-z0-9]/, message: "La password deve contenere almeno un carattere speciale" },
 	];
-	let errors = [];
-	for(const rule of rules) {
-		if(!rule.regex.test(inpt.value)) {
-			errors.push(rule.message);
+	for (const rule of rules) {
+		if (!rule.regex.test(password.value)) {
+			passwordError.textContent = rule.message;
+			return false;
 		}
 	}
-	addErrors("Password", errors);
-	return errors;
+	passwordError.textContent = "";
+	return true;
 }
-function checkDate(inpt) {
-    const errors = [];
 
-    const d = new Date(inpt.value);
-    const start = new Date("1920-01-01");
-    const today = new Date();
-
-    if (d < start || d > today) {
-        errors.push("Date must be between 1920 and today.");
-    }
-
-    addErrors("Date", errors);
-    return errors;
-}
-/*aggiunta errori alla UI*/
-function addErrors(fieldName, errors) {
-  	let errorList = document.getElementById("errorList");
-	errors.forEach(msg => {
-	    const li = document.createElement("li");
-	    li.textContent = `${fieldName}: ${msg}`;
-	    errorList.appendChild(li);
-  	});
+function validateConfermaPassword(confermaPassword, confermaPasswordError, password) {
+	if (confermaPassword.value != password.value) {
+		confermaPasswordError.textContent = "Le password devono corrispondere";
+		return false;
+	} else {
+		confermaPasswordError.textContent = "";
+		return true;
+	}
 }

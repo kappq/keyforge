@@ -2,24 +2,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body>
-    <h1>Login</h1>
-    
-    <% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-    <% if (errorMessage != null) { %>
-    	<p><%= errorMessage %></p>
-    <% } %>
+	<jsp:include page="/WEB-INF/fragments/header.jsp" />
 
-    <form method="post" action="<%= request.getContextPath() %>/common/LoginServlet">
-	    <label for="email">Email:</label><br>
-	    <input type="email" id="email" name="email" required><br>
+	<main class="page">
+		<form method="post" action="${pageContext.request.contextPath}/common/LoginServlet" class="card">
+			<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
+			<% if (errorMessage != null) { %>
+				<p><%= errorMessage %></p>
+			<% } %>
 
-	    <label for="password">Password:</label><br>
-	    <input type="password" id="password" name="password" required><br>
+			<h1>Login</h1>
+			
+			<div class="field">
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" placeholder="m.rossi@gmail.com" required>
+			</div>
 
-	    <button type="submit">Login</button>
-    </form>
+			<div class="field">
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="••••••••••••" required>
+			</div>
+
+			<button type="submit" class="btn">Login</button>
+			
+			<div class="form-footer">
+				Non hai un account? <a href="${pageContext.request.contextPath}/common/registrazione.jsp">Registrati</a>.
+			</div>
+		</form>
+	</main>
+
+	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
 </body>
 </html>

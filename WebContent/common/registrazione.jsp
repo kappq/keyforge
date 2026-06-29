@@ -2,48 +2,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/error.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body>
-	<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-	<% if (errorMessage != null) { %>
-		<p><%= errorMessage %></p>
-	<% } %>
+	<jsp:include page="/WEB-INF/fragments/header.jsp" />
 
-    <h2>Registrazione</h2>
+	<main class="page">
+		<form method="post" action="${pageContext.request.contextPath}/common/RegisterServlet" class="card">
+			<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
+			<% if (errorMessage != null) { %>
+				<p><%= errorMessage %></p><br>
+			<% } %>
 
-    <form id="lForm" method="post" action="${pageContext.request.contextPath}/common/RegisterServlet">
-	    <label for="nome">Nome:</label><br>
-	    <input type="text" id="nome" name="nome" required><br><br>
-	
-	    <label for="cognome">Cognome:</label><br>
-	    <input type="text" id="cognome" name="cognome" required><br><br>
-	
-	    <label for="email">Email:</label><br>
-	    <input type="email" id="email" name="email" placeholder="m.rossi@gmail.com" required><br><br>
-	
-	    <label for="dataNascita">Data di nascita:</label><br>
-	    <input type="date" id="dataNascita" name="dataNascita" required><br><br>
-	
-	    <label for="telefono">Telefono:</label><br>
-	    <input type="tel" id="telefono" name="telefono"><br><br>
-	
-	    <label for="password">Password:</label><br>
-	    <input type="password" id="password" name="password" placeholder="Almeno 6 caratteri"required><br><br>
+			<h1>Registrazione</h1>
 
-		<ul id="errorList"></ul>
-		<span id="emailMsg"></span>
+			<div class="field">
+				<label for="nome">Nome:</label>
+				<input type="text" id="nome" name="nome" placeholder="Marco" required>
+				<div id="nome-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="cognome">Cognome:</label>
+				<input type="text" id="cognome" name="cognome" placeholder="Rossi" required>
+				<div id="cognome-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" placeholder="m.rossi@gmail.com" required>
+				<div id="email-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="dataNascita">Data di Nascita:</label>
+				<input type="date" id="data-nascita" name="data-nascita" required>
+				<div id="data-nascita-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="telefono">Telefono:</label>
+				<input type="tel" id="telefono" name="telefono" placeholder="1234567890">
+				<div id="telefono-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="••••••••••••" required>
+				<div id="password-error" class="field-error"></div>
+			</div>
+		
+			<div class="field">
+				<label for="password">Conferma Password:</label>
+				<input type="password" id="conferma-password" name="conferma-password" placeholder="••••••••••••" required>
+				<div id="conferma-password-error" class="field-error"></div>
+			</div>
 
-		<br>
+			<button type="submit" id="submit-btn" class="btn">Registrati</button>
+		</form>
+	</main>
 
-	    <button type="submit">Registrati</button>
-    </form>
+	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
 
 	<script>
 		const contextPath = "<%= request.getContextPath() %>";
 	</script>
 	<script src="${pageContext.request.contextPath}/static/js/validate-form.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/check-email.js"></script>
 </body>
 </html>

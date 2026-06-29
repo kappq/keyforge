@@ -20,12 +20,13 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String name = request.getParameter("nome");
 	    String surname = request.getParameter("cognome");
-	    String bornDate = request.getParameter("dataNascita");
+	    String bornDate = request.getParameter("data-nascita");
 		String email = request.getParameter("email");
 	    String phone = request.getParameter("telefono");
 	    String password = request.getParameter("password");
+	    String confermaPassword = request.getParameter("conferma-password");
 
-        if (name == null || surname == null || email == null || password == null) {
+        if (name == null || surname == null || email == null || password == null || confermaPassword == null) {
         	forwardWithError(request, response, "Compilare tutti i campi");
         	return;
         }
@@ -56,6 +57,10 @@ public class RegisterServlet extends HttpServlet {
             forwardWithError(request, response, "Password non valida (min. 8 caratteri)");
             return;
         }
+        if (password.compareTo(confermaPassword) != 0) {
+        	forwardWithError(request, response, "La password e la conferma devono corrispondere");
+        	return;
+        }
 
 	    try {
 	    	boolean exists = UtenteDAO.emailExists(email);
@@ -66,6 +71,7 @@ public class RegisterServlet extends HttpServlet {
 	    } catch (SQLException e) {
 	    	e.printStackTrace();
 	    }
+
 	    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 	    try {
 	    	Date date = Date.valueOf(bornDate);
@@ -81,8 +87,7 @@ public class RegisterServlet extends HttpServlet {
 	    	response.sendRedirect(request.getContextPath() + "/common/registrazione.jsp");
 	    } catch (SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "Errore durante la registrazione.");
-			request.getRequestDispatcher("/common/registrazione.jsp").forward(request, response);
+			forwardWithError(request, response, "Error durante la registrazione");
 	    }
 	}
 
