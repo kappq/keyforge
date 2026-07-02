@@ -19,9 +19,6 @@ public class AddToCartServlet extends HttpServlet {
 			int articoloId = Integer.parseInt(request.getParameter("articoloId"));
 
 			int quantita = Integer.parseInt(request.getParameter("quantita"));
-            if (quantita <= 0) {
-            	throw new NumberFormatException();
-            }
 
 			HttpSession session = request.getSession();
 
@@ -33,7 +30,12 @@ public class AddToCartServlet extends HttpServlet {
 				session.setAttribute("carrello", carrello);
 			}
 
-			carrello.merge(articoloId, quantita, Integer::sum);
+			if(quantita == 1) {
+				carrello.merge(articoloId, quantita, Integer::sum);
+			}else {
+				carrello.replace(articoloId, carrello.get(articoloId)+quantita);
+				carrello.entrySet().removeIf(e -> e.getValue() <= 0);
+			}
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;

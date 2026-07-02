@@ -29,8 +29,8 @@ public class ConfirmOrderServlet extends HttpServlet {
 
 
 		Map<Integer, Integer> carrello = (Map<Integer, Integer>)session.getAttribute("carrello");
-		if (carrello == null) {
-			request.setAttribute("errorMessage", "Il carrello è vuoto");
+		if (carrello == null || carrello.isEmpty()) {
+			session.setAttribute("errorMessage", "Il carrello è vuoto");
 			request.getRequestDispatcher("/riepilogo.jsp");
 			return;
 		}
@@ -44,7 +44,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 				Articolo articolo = articoloDAO.findById(entry.getKey());
 
 				if (entry.getValue() > articolo.getDisponibilita()) {
-					request.setAttribute("errorMessage", "L'articolo \"" + articolo.getNome() + "\" non ha sufficiente disponibilità");
+					session.setAttribute("errorMessage", "L'articolo \"" + articolo.getNome() + "\" non ha sufficiente disponibilità");
 					request.getRequestDispatcher("/riepilogo.jsp").forward(request, response);
 					return;
 				}
@@ -68,7 +68,7 @@ public class ConfirmOrderServlet extends HttpServlet {
 				Comprensione comprensione = new Comprensione(ordine.getId(), entry.getKey(), entry.getValue());
 				comprensioneDAO.create(comprensione);
 			}
-
+			session.setAttribute("successMessage", "Ordine eseguito con successo");
 			response.sendRedirect(request.getContextPath() + "/profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();

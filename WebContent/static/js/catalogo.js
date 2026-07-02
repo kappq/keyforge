@@ -58,7 +58,8 @@ function renderGriglia(articoli) {
 			<div class="spaced">
 				<div>€ ${a.prezzo.toFixed(2)}</div>
 				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
-				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
+				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})">Aggiungi</button>
+				<div id="${a.id}"></div>
 			</div>
 		</div>
 	`).join("");
@@ -74,6 +75,11 @@ async function addToCart(articoloId) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString(),
     });
+	const popup = document.getElementById("successPopupInPage");
+	popup.textContent = "Elemento inserito nel carrello.";
+	setTimeout(() => {
+		popup.textContent = "";
+	}, 2000);
 
     if (res.ok) {
         console.log("Aggiunto al carrello");

@@ -29,6 +29,7 @@ public class AuthFilter extends HttpFilter {
 		if (isAllowed) {
 			chain.doFilter(request, response);
 		} else {
+			session.setAttribute("errorMessage", "Devi essere loggato per effettuare questa operazione");
 			res.sendRedirect(req.getContextPath() + "/common/login.jsp");
 		}
 	}

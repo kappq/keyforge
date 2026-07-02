@@ -9,9 +9,12 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 <body>
-	<form method="post" action="<%= request.getContextPath() %>/common/EmptyCartServlet">
-		<button type="submit">Svuota Carrello</button>
-	</form>
+	<div id="successPopupInPage" class="popup-success"></div>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+	
+	<a href="<%= request.getContextPath() %>/common/carrello.jsp">
+		<img src="<%= request.getContextPath() %>/images/carrello.jsp">	
+	</a>
 
 	<div id="filtri">
 		<input type="text" id="nome" placeholder="Nome articolo">

@@ -2,14 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Registrazione</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/error.css">
 </head>
 <body>
-	<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-	<% if (errorMessage != null) { %>
-		<p><%= errorMessage %></p>
-	<% } %>
+	<jsp:include page="/WEB-INF/popups.jsp" />
 
     <h2>Registrazione</h2>
 

@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -76,7 +78,8 @@ public class RegisterServlet extends HttpServlet {
 	    	Carrello carrello = new Carrello(0, utente.getId());
 	    	CarrelloDAO carrelloDAO = new CarrelloDAO();
 	    	carrelloDAO.create(carrello);
-
+	    	HttpSession session = request.getSession();
+	    	session.setAttribute("successMessage", "Registrazione avvenuta con successo");
 	    	response.sendRedirect(request.getContextPath() + "/common/registrazione.jsp");
 	    } catch (SQLException e) {
 			e.printStackTrace();
@@ -86,7 +89,8 @@ public class RegisterServlet extends HttpServlet {
 	}
 
 	private void forwardWithError(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
-		request.setAttribute("errorMessage", message);
+		HttpSession session = request.getSession();
+		session.setAttribute("errorMessage", message);
 		request.getRequestDispatcher("/common/registrazione.jsp").forward(request, response);
 	}
 }

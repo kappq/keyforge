@@ -7,6 +7,8 @@
 	<title>Profilo</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+
 	<% Integer utenteId = (Integer)session.getAttribute("utenteId"); %>
 
 	<% UtenteDAO utenteDAO = new UtenteDAO(); %>

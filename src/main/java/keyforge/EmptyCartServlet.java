@@ -12,7 +12,7 @@ public class EmptyCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().removeAttribute("carrello");
-		response.sendRedirect(request.getContextPath() + "/common/catalogo.jsp");
+		request.getSession().removeAttribute("carrello");		request.getSession().setAttribute("successMessage", "carrello svuotato");
+		response.sendRedirect(request.getContextPath() + "/common/carrello.jsp");
 	}
 }

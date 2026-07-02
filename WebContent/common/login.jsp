@@ -5,13 +5,10 @@
     <title>Login</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+
     <h1>Login</h1>
     
-    <% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-    <% if (errorMessage != null) { %>
-    	<p><%= errorMessage %></p>
-    <% } %>
-
     <form method="post" action="<%= request.getContextPath() %>/common/LoginServlet">
 	    <label for="email">Email:</label><br>
 	    <input type="email" id="email" name="email" required><br>
