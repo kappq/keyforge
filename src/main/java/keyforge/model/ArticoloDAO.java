@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ArticoloDAO implements DAO<Articolo> {
+public class ArticoloDAO implements DAO<Articolo, Integer> {
 	@Override
-	public Articolo findById(int id) throws SQLException {
+	public Articolo findById(Integer id) throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE id = ?");
 			stmt.setInt(1, id);
@@ -91,7 +91,7 @@ public class ArticoloDAO implements DAO<Articolo> {
 	}
 
 	@Override
-	public void delete(int id) throws SQLException {
+	public void delete(Integer id) throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement("DELETE FROM articolo WHERE id = ?");
 			stmt.setInt(1, id);

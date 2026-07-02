@@ -40,10 +40,9 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 
-			request.getSession().invalidate();
-			request.getSession(true).setAttribute("utente", utente);
+			request.getSession().setAttribute("utenteId", utente.getId());
 
-			response.sendRedirect(request.getContextPath() + "/profilo.jsp");
+			response.sendRedirect(request.getContextPath() + "/user/profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

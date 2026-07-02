@@ -8,38 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PagamentoDAO implements DAO<Pagamento> {
-	
-    private static Pagamento fromResultSet(ResultSet rs) throws SQLException {
-        return new Pagamento(
-            rs.getInt("id"),
-            rs.getInt("ordine_id"),
-            rs.getString("stato"),
-            rs.getBigDecimal("importo"),
-            rs.getString("valuta"),
-            rs.getTimestamp("data")
-        );
-    }
-
+public class PagamentoDAO implements DAO<Pagamento, Integer> {
     @Override
-    public Pagamento findById(int id) throws SQLException {
+    public Pagamento findById(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "SELECT * FROM pagamento WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM pagamento WHERE id = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return fromResultSet(rs);
-            return null;
-        }
-    }
-
-    public Pagamento findByOrdineId(int ordineId) throws SQLException {
-        try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "SELECT * FROM pagamento WHERE ordine_id = ?");
-            stmt.setInt(1, ordineId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return fromResultSet(rs);
+            if (rs.next()) return extractPagamento(rs);
             return null;
         }
     }
@@ -47,11 +23,10 @@ public class PagamentoDAO implements DAO<Pagamento> {
     @Override
     public Collection<Pagamento> findAll() throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "SELECT * FROM pagamento ORDER BY data DESC");
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM pagamento ORDER BY data DESC");
             ResultSet rs = stmt.executeQuery();
             ArrayList<Pagamento> list = new ArrayList<>();
-            while (rs.next()) list.add(fromResultSet(rs));
+            while (rs.next()) list.add(extractPagamento(rs));
             return list;
         }
     }
@@ -76,8 +51,7 @@ public class PagamentoDAO implements DAO<Pagamento> {
     @Override
     public void update(Pagamento pagamento) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE pagamento SET stato = ?, importo = ?, valuta = ? WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE pagamento SET stato = ?, importo = ?, valuta = ? WHERE id = ?");
             stmt.setString(1, pagamento.getStato());
             stmt.setBigDecimal(2, pagamento.getImporto());
             stmt.setString(3, pagamento.getValuta());
@@ -87,12 +61,22 @@ public class PagamentoDAO implements DAO<Pagamento> {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public void delete(Integer id) throws SQLException {
         try (Connection conn = ConnectionManager.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(
-                "DELETE FROM pagamento WHERE id = ?");
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM pagamento WHERE id = ?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
+    }
+
+    private static Pagamento extractPagamento(ResultSet rs) throws SQLException {
+        return new Pagamento(
+            rs.getInt("id"),
+            rs.getInt("ordine_id"),
+            rs.getString("stato"),
+            rs.getBigDecimal("importo"),
+            rs.getString("valuta"),
+            rs.getTimestamp("data")
+        );
     }
 }
