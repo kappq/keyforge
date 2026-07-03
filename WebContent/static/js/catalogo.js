@@ -54,15 +54,12 @@ function renderGriglia(articoli) {
 				<b>${a.nome}</b>
 				<span>${a.brand}</span>
 			</div>
-			<div class="articolo-footer">
-				<p>${a.descrizione}</p>
-				<div class="articolo-footer-bottom">
-					<div class="articolo-meta">
-						<span class="prezzo">€ ${a.prezzo.toFixed(2)}</span>
-						<span class="disponibilita">${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</span>
-					</div>
-					<button type="button" ${a.disponibilita === 0 ? "disabled" : ""} class="btn" onclick="addToCart(${a.id})">Aggiungi al Carrello</button>
-				</div>
+			<p>${a.descrizione}</p>
+			<div class="spaced">
+				<div>€ ${a.prezzo.toFixed(2)}</div>
+				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
+				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
+				<div id="${a.id}"></div>
 			</div>
 		</div>
 	`).join("");
@@ -78,6 +75,9 @@ async function addToCart(articoloId) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString(),
     });
+	setTimeout(() => {
+		console.log("AGGINTO");
+	}, 1000);
 
     if (res.ok) {
         console.log("Aggiunto al carrello");

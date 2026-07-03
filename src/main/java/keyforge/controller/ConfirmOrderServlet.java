@@ -1,4 +1,4 @@
-package keyforge;
+package keyforge.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;

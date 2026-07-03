@@ -47,7 +47,7 @@
 		
 			<div class="field">
 				<label for="telefono">Telefono:</label>
-				<input type="tel" id="telefono" name="telefono" placeholder="1234567890">
+				<input type="tel" id="telefono" name="telefono" placeholder="1234567890" required>
 				<div id="telefono-error" class="field-error"></div>
 			</div>
 		
