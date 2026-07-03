@@ -11,14 +11,10 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
-
+	<jsp:include page="/WEB-INF/popups.jsp" />
+	
 	<main class="page">
-		<form method="post" action="${pageContext.request.contextPath}/common/LoginServlet" class="card">
-			<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-			<% if (errorMessage != null) { %>
-				<p><%= errorMessage %></p>
-			<% } %>
-
+		<form method="post" action="<%= request.getContextPath() %>/common/LoginServlet" class="card">
 			<h1>Login</h1>
 			
 			<div class="field">

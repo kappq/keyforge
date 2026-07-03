@@ -15,7 +15,9 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
-
+	<div id="successPopupInPage" class="popup-success"></div>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+	
 	<main class="catalogo-page">
 		<div class="catalogo">
 			<h1>Catalogo</h1>

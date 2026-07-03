@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+
 	<h1>Riepilogo Ordine</h1>
 
     <% String errorMessage = (String)request.getAttribute("errorMessage"); %>
@@ -20,7 +22,8 @@
 	<% ArticoloDAO articoloDAO = new ArticoloDAO(); %>
 	<% Map<Integer, Integer> carrello = (Map<Integer, Integer>)session.getAttribute("carrello"); %>
 	
-	<% if (carrello == null) { %>
+	<% if (carrello == null || carrello.isEmpty()) { %>
+		<% request.getSession().setAttribute("errorMessage", "Il carrello è vuoto"); %>
 		<% response.sendRedirect(request.getContextPath() + "/common/catalogo.jsp"); %>
 	<% } else { %>
 		<% BigDecimal totale = BigDecimal.ZERO; %>

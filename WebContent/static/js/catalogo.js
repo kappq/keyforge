@@ -49,18 +49,21 @@ function renderGriglia(articoli) {
 
 	griglia.innerHTML = articoli.map(a => `
 		<div class="card articolo">
-			<img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/320x200'">
-			<div class="articolo-info">
-				<b>${a.nome}</b>
-				<span>${a.brand}</span>
-			</div>
-			<p>${a.descrizione}</p>
-			<div class="spaced">
-				<div>€ ${a.prezzo.toFixed(2)}</div>
-				<div>${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</div>
-				<button type="submit" ${a.disponibilita === 0 ? "disabled" : ""} onclick="addToCart(${a.id})"}>Aggiungi</button>
-				<div id="${a.id}"></div>
-			</div>
+		    <img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/320x200'">
+		    <div class="articolo-info">
+		        <b>${a.nome}</b>
+		        <span>${a.brand}</span>
+		    </div>
+		    <div class="articolo-footer">
+		        <p>${a.descrizione}</p>
+		        <div class="articolo-footer-bottom">
+		            <div class="articolo-meta">
+		                <span class="prezzo">€ ${a.prezzo.toFixed(2)}</span>
+		                <span class="disponibilita">${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</span>
+		            </div>
+		            <button type="button" ${a.disponibilita === 0 ? "disabled" : ""} class="btn" onclick="addToCart(${a.id})">Aggiungi al Carrello</button>
+		        </div>
+		    </div>
 		</div>
 	`).join("");
 }
@@ -75,9 +78,11 @@ async function addToCart(articoloId) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString(),
     });
+	const popup = document.getElementById("successPopupInPage");
+	popup.textContent = "Elemento inserito nel carrello.";
 	setTimeout(() => {
-		console.log("AGGINTO");
-	}, 1000);
+		popup.textContent = "";
+	}, 2000);
 
     if (res.ok) {
         console.log("Aggiunto al carrello");
