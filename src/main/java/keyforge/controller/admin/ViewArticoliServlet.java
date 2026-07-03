@@ -1,37 +1,33 @@
-package keyforge;
+package keyforge.controller.admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
+import keyforge.model.Articolo;
+import keyforge.model.ArticoloDAO;
 
-import keyforge.model.UtenteDAO;
-
-@WebServlet("/common/CheckEmailServlet")
-public class CheckEmailServlet extends HttpServlet {
+@WebServlet("/admin/ViewArticoliServlet")
+public class ViewArticoliServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		email = email.trim().toLowerCase();
+		ArticoloDAO articoloDAO = new ArticoloDAO();
+		
 		try {
-			boolean exists = UtenteDAO.emailExists(email);
-
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-
-			JSONObject obj = new JSONObject();
-			obj.put("exists", exists);
-
-			response.getWriter().write(obj.toString());
+			Collection<Articolo> articoli = articoloDAO.findAll();
+			
+			request.setAttribute("articoli", articoli);
+			request.getRequestDispatcher("/admin/articolo/view.jsp").forward(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
 		}
 	}
 }
