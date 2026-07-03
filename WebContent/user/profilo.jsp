@@ -17,14 +17,10 @@
 	<% Utente utente = utenteDAO.findById(utenteId); %>
 
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
+	<jsp:include page="/WEB-INF/popups.jsp" />
 
 	<main class="page">
 		<form method="post" action="${pageContext.request.contextPath}/common/RegisterServlet" class="card">
-			<% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-			<% if (errorMessage != null) { %>
-				<p><%= errorMessage %></p><br>
-			<% } %>
-
 			<h1>Profilo</h1>
 
 			<div class="field">

@@ -15,28 +15,27 @@ public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String paese = request.getParameter("paese");
 		if (paese == null || paese.isBlank()) {
-			request.setAttribute("errorMessage", "Inserire il paese");
+			session.setAttribute("errorMessage", "Inserire il paese");
 			request.getRequestDispatcher("checkout.jsp").forward(request, response);
 			return;
 		}
 
 		String cap = request.getParameter("cap");
 		if (cap == null || cap.isBlank()) {
-			request.setAttribute("errorMessage", "Inserire il CAP");
+			session.setAttribute("errorMessage", "Inserire il CAP");
 			request.getRequestDispatcher("checkout.jsp").forward(request, response);
 			return;
 		}
 
 		String via = request.getParameter("via");
 		if (via == null || via.isBlank()) {
-			request.setAttribute("errorMessage", "Inserire la via");
+			session.setAttribute("errorMessage", "Inserire la via");
 			request.getRequestDispatcher("checkout.jsp").forward(request, response);
 			return;
 		}
-
-		HttpSession session = request.getSession();
 		
 		Ordine ordine = new Ordine();
 		ordine.setUtenteId((int)session.getAttribute("utenteId"));

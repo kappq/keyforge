@@ -94,10 +94,18 @@ async function validateEmail(email, emailError) {
 }
 
 function validateDataNascita(dataNascita, dataNascitaError) {
+	const date = new Date();
+	const todayISO = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay(); 
 	if (dataNascita.value.trim().length === 0) {
 		dataNascitaError.textContent = "Inserire la data di nascita";
 		return false;
-	} else {
+	} else if(dataNascita.value.trim() <= "1920-01-01") {
+		dataNascitaError.textContent = "Inserire una data superiore al 1920";
+		return false;
+	}else if(dataNascita.value.trim() >= todayISO)  {
+		dataNascitaError.textContent = "Inserire una data inferiore a quella odierna";
+		return false;
+	}else {
 		dataNascitaError.textContent = "";
 		return true;
 	}

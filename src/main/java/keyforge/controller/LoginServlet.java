@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -33,16 +35,18 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		try {
+			HttpSession session = request.getSession();
 			Utente utente = login(email, password);
+
 			if (utente == null) {
-				request.setAttribute("errorMessage", "Credenziali errate");
-				request.getRequestDispatcher("/common/login.jsp").forward(request, response);
+				session.setAttribute("errorMessage", "Credenziali errate");
+				response.sendRedirect(request.getContextPath() + "/common/login.jsp");
 				return;
 			}
-
+			
 			request.getSession().setAttribute("utenteId", utente.getId());
-
-			response.sendRedirect(request.getContextPath() + "/user/profilo.jsp");
+			session.setAttribute("successMessage", "Utente loggato correttamente.");
+			response.sendRedirect(request.getContextPath() + "/profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

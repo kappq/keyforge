@@ -7,29 +7,60 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Catalogo</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/catalogo.css">
 </head>
 <body>
-	<form method="post" action="<%= request.getContextPath() %>/common/EmptyCartServlet">
-		<button type="submit">Svuota Carrello</button>
-	</form>
+	<jsp:include page="/WEB-INF/fragments/header.jsp" />
+	<div id="successPopupInPage" class="popup-success" style="display:none;"></div>
+	<jsp:include page="/WEB-INF/popups.jsp" />
+	
+	<main class="catalogo-page">
+		<div class="catalogo">
+			<h1>Catalogo</h1>
 
-	<div id="filtri">
-		<input type="text" id="nome" placeholder="Nome articolo">
-		<input type="number" id="prezzo-min" placeholder="Prezzo minimo">
-		<input type="number" id="prezzo-max" placeholder="Prezzo massimo">
-		<select id="disponibilita">
-			<option value="0">Tutti</option>
-			<option value="1">Disponibile</option>
-		</select>
-		<button onclick="clearFilters()">Reset Filtri</button>
-	</div>
+			<div class="catalogo-layout">
+				<aside class="card sidebar">
+					<h2>Filtri</h2>
 
-	<div id="griglia" class="grid"></div>
+					<div class="field">
+						<label for="nome">Nome articolo</label>
+						<input type="text" id="nome" placeholder="Cerca...">
+					</div>
+
+					<div class="field">
+						<label>Prezzo</label>
+						<div class="price-range">
+							<input type="number" id="prezzo-min" placeholder="Min">
+							<span>—</span>
+							<input type="number" id="prezzo-max" placeholder="Max">
+						</div>
+					</div>
+
+					<div class="field">
+						<label for="disponibilita">Disponibilità</label>
+						<select id="disponibilita">
+							<option value="0">Tutti</option>
+							<option value="1">Disponibile</option>
+						</select>
+					</div>
+
+					<button type="button" class="reset" onclick="clearFilters()">Reset Filtri</button>
+				</aside>
+
+				<div id="griglia" class="grid"></div>
+			</div>
+		</div>
+	</main>
+
+	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
 
 	<script>
-		const contextPath = "<%= request.getContextPath() %>";
+		const contextPath = "${pageContext.request.contextPath}";
 	</script>
-	<script src="<%= request.getContextPath() %>/static/js/catalogo.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/catalogo.js"></script>
 </body>
 </html>
