@@ -80,8 +80,10 @@ async function addToCart(articoloId) {
     });
 	const popup = document.getElementById("successPopupInPage");
 	popup.textContent = "Elemento inserito nel carrello.";
+	popup.style.display = "block";
 	setTimeout(() => {
 		popup.textContent = "";
+		popup.style.display = "none";
 	}, 2000);
 
     if (res.ok) {
