@@ -58,7 +58,7 @@ public class DeleteArticoloServlet extends HttpServlet {
 		try {
 			articoloDAO.delete(articoloId);
 			
-			request.getSession().setAttribute("errorMessage", "Articolo cancellato con successo");
+			request.getSession().setAttribute("successMessage", "Articolo cancellato con successo");
 			response.sendRedirect(request.getContextPath() + "/admin/ViewArticoliServlet");
 		} catch (SQLException e) {
 			e.printStackTrace();

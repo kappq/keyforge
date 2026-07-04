@@ -15,6 +15,7 @@
 	<% Collection<Articolo> articoli = (Collection<Articolo>)request.getAttribute("articoli"); %>
 
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
+	<jsp:include page="/WEB-INF/popups.jsp" />
 
 	<main class="page">
 		<div class="card wide">

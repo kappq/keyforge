@@ -14,6 +14,7 @@
 	<% Articolo articolo = (Articolo)request.getAttribute("articolo"); %>
 
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
+	<jsp:include page="/WEB-INF/popups.jsp" />
 
 	<main class="page">
 		<form method="post" action="${pageContext.request.contextPath}/admin/DeleteArticoloServlet?articolo-id=<%= articolo.getId() %>" class="card">

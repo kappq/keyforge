@@ -15,8 +15,9 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
-	<div id="successPopupInPage" class="popup-success" style="display:none;"></div>
 	<jsp:include page="/WEB-INF/popups.jsp" />
+
+	<div id="ajax-popup" class="popup-success" style="display: none;"></div>
 	
 	<main class="catalogo-page">
 		<div class="catalogo">

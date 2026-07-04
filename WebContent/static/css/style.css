@@ -212,3 +212,26 @@ td {
 tr:hover td {
 	background: #FCF9F9; /* Subtle variant of var(--bg) to track rows */
 }
+
+/* Add space between the two forms within the card */
+.logout-form {
+	margin-top: 1rem;
+}
+
+/* Logout Button styling consistent with your system */
+.btn.btn-logout {
+	background: transparent;
+	color: var(--red);
+	border: 1px solid var(--red);
+	transition: background 0.15s, color 0.15s;
+}
+
+.btn.btn-logout:hover {
+	background: var(--red);
+	color: #ffffff;
+}
+
+.btn.btn-logout:active {
+	background: #a33e43; /* slightly darker shade of --red */
+	border-color: #a33e43;
+}
