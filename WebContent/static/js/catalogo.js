@@ -78,7 +78,8 @@ async function addToCart(articoloId) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString(),
     });
-	const popup = document.getElementById("successPopupInPage");
+
+	const popup = document.getElementById("ajax-popup");
 	popup.textContent = "Elemento inserito nel carrello.";
 	popup.style.display = "block";
 	setTimeout(() => {
