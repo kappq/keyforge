@@ -70,7 +70,6 @@
 	color: var(--text-sec);
 }
 
-/* Tablet: drop to 2 columns, desc and social span full width */
 @media (max-width: 900px) {
 	.footer-top {
 		grid-template-columns: 1fr 1fr;
@@ -88,7 +87,6 @@
 	}
 }
 
-/* Mobile: stack everything, center-align */
 @media (max-width: 600px) {
 	.footer {
 		padding: 2rem 1.25rem 1.25rem;

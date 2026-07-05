@@ -24,7 +24,7 @@
 			<% if (articoli.isEmpty()) { %>
 				<div class="form-footer">Nessun articolo presente nel catalogo.</div>
 			<% } else { %>
-				<table>
+				<table class="table-scroll">
 					<thead>
 						<tr>
 							<th>ID</th>

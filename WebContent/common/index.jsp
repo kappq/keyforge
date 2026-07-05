@@ -5,6 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Keyforge - Tastiere Meccaniche</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,8 +17,6 @@
 	<jsp:include page="/WEB-INF/fragments/header.jsp" />
 
 	<main class="home-page">
-
-		<!-- Hero -->
 		<section class="hero">
 			<div class="hero-content">
 				<h1>Trova la tastiera meccanica perfetta</h1>
@@ -27,9 +26,6 @@
 		</section>
 
 		<div class="home">
-			
-			<!-- Categorie -->
-			
 			<section class="section">
 				<h2>Prodotti consigliati</h2>
 			</section>
@@ -37,7 +33,6 @@
 				<div id="griglia" class="grid"></div>
 			</div>	
 
-			<!-- Prodotti in evidenza -->
 			<section class="section">
 				<div class="section-header">
 					<h2>In evidenza</h2>
@@ -46,7 +41,6 @@
 				<div id="evidenza-griglia" class="grid"></div>
 			</section>
 
-			<!-- Perché sceglierci -->
 			<section class="section perks">
 				<div class="perk-card">
 					<h3>Spedizione veloce</h3>
@@ -70,7 +64,6 @@
 					</div>
 				</div>
 			</section>
-
 		</div>
 	</main>
 

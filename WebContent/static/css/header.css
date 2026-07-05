@@ -79,7 +79,6 @@
 	fill: currentColor;
 }
 
-/* Mobile menu toggle (checkbox hack, no JS) */
 .navbar-toggle-checkbox {
 	display: none;
 }
