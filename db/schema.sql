@@ -71,6 +71,8 @@ CREATE TABLE comprensione (
 	ordine_id INT NOT NULL,
 	articolo_id INT NOT NULL,
 	quantita INT UNSIGNED NOT NULL,
+	prezzo_unitario DECIMAL(10, 2) NOT NULL, 
+	iva DECIMAL(5, 2) NOT NULL,
 	PRIMARY KEY (ordine_id, articolo_id),
 	FOREIGN KEY (ordine_id) REFERENCES ordine(id),
 	FOREIGN KEY (articolo_id) REFERENCES articolo(id)

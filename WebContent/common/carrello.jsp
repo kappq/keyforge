@@ -94,7 +94,9 @@
 							<span>Totale</span>
 							<span><%= totale %> €</span>
 						</div>
-						<button type="button" class="btn">Procedi al checkout</button>
+						<a href="${pageContext.request.contextPath}/user/checkout.jsp">
+							<button type="button" class="btn">Procedi al checkout</button>
+						</a>
 					</div>
 				</div>
 
