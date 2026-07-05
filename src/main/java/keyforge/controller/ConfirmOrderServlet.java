@@ -27,7 +27,8 @@ public class ConfirmOrderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		Map<Integer, Integer> carrello = (Map<Integer, Integer>) session.getAttribute("carrello");
+
+		Map<Integer, Integer> carrello = (Map<Integer, Integer>)session.getAttribute("carrello");
 		if (carrello == null || carrello.isEmpty()) {
 			session.setAttribute("errorMessage", "Il carrello è vuoto");
 			request.getRequestDispatcher("/riepilogo.jsp").forward(request, response);
@@ -39,16 +40,19 @@ public class ConfirmOrderServlet extends HttpServlet {
 			for (Map.Entry<Integer, Integer> entry : carrello.entrySet()) {
 				Articolo articolo = articoloDAO.findById(entry.getKey());
 				if (entry.getValue() > articolo.getDisponibilita()) {
-					session.setAttribute("errorMessage", "L'articolo \"" + articolo.getNome() + "\" non ha sufficiente disponibilità");
-					request.getRequestDispatcher("/riepilogo.jsp").forward(request, response);
+					session.setAttribute("errorMessage", "L'articolo <strong>" + articolo.getNome() + "</strong> non ha sufficiente disponibilità");
+					request.getRequestDispatcher("/user/riepilogo.jsp").forward(request, response);
 					return;
 				}
 			}
+
 			ordine.setStato("in_attesa");
 			ordine.setTracking(Integer.toString(new Random().nextInt(100_000)));
 			ordine.setDataOrdine(Timestamp.from(java.time.Instant.now()));
+
 			OrdineDAO ordineDAO = new OrdineDAO();
 			ordineDAO.create(ordine);
+
 			ComprensioneDAO comprensioneDAO = new ComprensioneDAO();
 			for (Map.Entry<Integer, Integer> entry : carrello.entrySet()) {
 				Articolo articolo = articoloDAO.findById(entry.getKey());
@@ -64,8 +68,11 @@ public class ConfirmOrderServlet extends HttpServlet {
 				);
 				comprensioneDAO.create(comprensione);
 			}
+			
+			session.removeAttribute("carrello");
+
 			session.setAttribute("successMessage", "Ordine eseguito con successo");
-			response.sendRedirect(request.getContextPath() + "/profilo.jsp");
+			response.sendRedirect(request.getContextPath() + "/user/profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

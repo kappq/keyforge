@@ -1,56 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
 <%@ page import="java.math.BigDecimal" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="keyforge.model.Articolo,keyforge.model.ArticoloDAO" %>
+<%@ page import="keyforge.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Riepilogo Ordine</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
+	<title>Riepilogo</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/carrello.css">
 </head>
 <body>
+	<jsp:include page="/WEB-INF/fragments/header.jsp" />
 	<jsp:include page="/WEB-INF/popups.jsp" />
 
-	<h1>Riepilogo Ordine</h1>
+	<%
+		HttpSession session1 = request.getSession();
+		Map<Integer, Integer> carrello = (Map<Integer, Integer>) session1.getAttribute("carrello");
+		String errorMessage = (String) request.getAttribute("errorMessage");
 
-    <% String errorMessage = (String)request.getAttribute("errorMessage"); %>
-    <% if (errorMessage != null) { %>
-    	<p><%= errorMessage %></p>
-    <% } %>
+		BigDecimal totale = BigDecimal.ZERO;
+		ArticoloDAO articoloDAO = new ArticoloDAO();
+	%>
 
-	<% ArticoloDAO articoloDAO = new ArticoloDAO(); %>
-	<% Map<Integer, Integer> carrello = (Map<Integer, Integer>)session.getAttribute("carrello"); %>
-	
-	<% if (carrello == null || carrello.isEmpty()) { %>
-		<% request.getSession().setAttribute("errorMessage", "Il carrello è vuoto"); %>
-		<% response.sendRedirect(request.getContextPath() + "/common/catalogo.jsp"); %>
-	<% } else { %>
-		<% BigDecimal totale = BigDecimal.ZERO; %>
-		<div class="grid">
-			<% for (Map.Entry<Integer, Integer> entry : carrello.entrySet()) { %>
-				<% Articolo articolo = articoloDAO.findById(entry.getKey()); %>
-				<% totale = totale.add(articolo.getPrezzo().multiply(new BigDecimal(entry.getValue()))); %>
-				<div class="articolo">
-					<img src="<%= request.getContextPath() %>/ImageServlet?articoloId=<%= articolo.getId() %>" onerror="this.src = 'https://placehold.co/320x200'">
-					<div class="spaced">
-						<b><%= articolo.getNome() %></b>
-						<span><%= articolo.getBrand() %></span>
-					</div>
-					<p><%= articolo.getDescrizione() %></p>
-					<div class="spaced">
-						<div>€ <%= articolo.getPrezzo() %></div>
-						<div><%= entry.getValue() %>x</div>
-					</div>
+	<div class="cart-page">
+		<div class="cart">
+			<div class="cart-header">
+				<h1>Riepilogo Ordine</h1>
+			</div>
+
+			<div class="cart-layout">
+				<div class="cart-items">
+					<% for (Map.Entry<Integer, Integer> entry : carrello.entrySet()) { %>
+						<%
+							Integer key = entry.getKey();
+							Integer value = entry.getValue();
+							Articolo articolo = articoloDAO.findById(key);
+							BigDecimal subtotale = articolo.getPrezzo().multiply(BigDecimal.valueOf(value));
+							totale = totale.add(subtotale);
+						%>
+
+						<div class="cart-item">
+							<div class="cart-item-info">
+								<b><%= articolo.getNome() %></b>
+								<span><%= articolo.getPrezzo() %> € cad.</span>
+							</div>
+
+							<div class="cart-item-subtotal"><%= subtotale %> €</div>
+						</div>
+					<% } %>
 				</div>
-			<% } %>
-		</div>
-		
-		<p>Totale: € <%= totale %></p>
 
-		<form method="post" action="<%= request.getContextPath() %>/user/ConfirmOrderServlet">
-			<button type="submit">Conferma Ordine</button>
-		</form>
-	<% } %>
+				<div class="cart-summary card">
+					<h2>Riepilogo ordine</h2>
+
+					<div class="summary-row">
+						<span>Subtotale</span>
+						<span><%= totale %> €</span>
+					</div>
+					<div class="summary-row">
+						<span>Spedizione</span>
+						<span>Gratuita</span>
+					</div>
+					<div class="summary-row total">
+						<span>Totale</span>
+						<span><%= totale %> €</span>
+					</div>
+
+					<form method="post" action="${pageContext.request.contextPath}/user/ConfirmOrderServlet">
+						<button type="submit" class="btn">Conferma Ordine</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
+	
+	<script>
+		const contextPath = "<%= request.getContextPath() %>";
+	</script>
+	<script src="<%= request.getContextPath() %>/static/js/carrello.js"></script>
 </body>
 </html>

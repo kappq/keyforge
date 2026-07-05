@@ -85,9 +85,10 @@ public class RegisterServlet extends HttpServlet {
 	    	Carrello carrello = new Carrello(0, utente.getId());
 	    	CarrelloDAO carrelloDAO = new CarrelloDAO();
 	    	carrelloDAO.create(carrello);
+
 	    	HttpSession session = request.getSession();
 	    	session.setAttribute("successMessage", "Registrazione avvenuta con successo");
-	    	response.sendRedirect(request.getContextPath() + "/common/registrazione.jsp");
+	    	response.sendRedirect(request.getContextPath() + "/common/login.jsp");
 	    } catch (SQLException e) {
 			e.printStackTrace();
 			forwardWithError(request, response, "Error durante la registrazione");
