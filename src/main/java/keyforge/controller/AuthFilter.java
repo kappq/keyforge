@@ -33,21 +33,26 @@ public class AuthFilter extends HttpFilter {
 				utente = utenteDAO.findById(utenteId);
 			}
 
+			String contextPath = req.getContextPath();
+
+			String uri = req.getRequestURI();
 			boolean isLogged = utente != null;
 			boolean isAdmin = utente != null && utente.getIsAdmin();
 
-			String uri = req.getRequestURI();
-			String contextPath = req.getContextPath();
-			boolean isAllowed =
-				uri.startsWith(contextPath + "/common/") ||
-				uri.startsWith(contextPath + "/static/") ||
-				(uri.startsWith(contextPath + "/user/") && isLogged) ||
-				(uri.startsWith(contextPath + "/admin/") && isAdmin);
-
-			if (isAllowed) {
+			if (uri.startsWith(contextPath + "/admin/")) {
+				if (!isAdmin) {
+					res.sendError(HttpServletResponse.SC_NOT_FOUND);
+					return;
+				}
+				chain.doFilter(req, res);
+				return;
+			} else if (uri.startsWith(contextPath + "/common/") || uri.startsWith(contextPath + "/static/") || (uri.startsWith(contextPath + "/user/") && isLogged)) {
 				chain.doFilter(request, response);
+				return;
 			} else {
+				req.getSession().setAttribute("errorMessage", "Devi effettuare l'accesso per eseguire questa operazione");
 				res.sendRedirect(req.getContextPath() + "/common/login.jsp");
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

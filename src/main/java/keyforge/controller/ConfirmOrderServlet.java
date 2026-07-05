@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import keyforge.model.Articolo;
 import keyforge.model.ArticoloDAO;
 import keyforge.model.Comprensione;
@@ -71,8 +72,8 @@ public class ConfirmOrderServlet extends HttpServlet {
 			
 			session.removeAttribute("carrello");
 
-			session.setAttribute("successMessage", "Ordine eseguito con successo");
-			response.sendRedirect(request.getContextPath() + "/user/profilo.jsp");
+			 session.setAttribute("successMessage", "Ordine eseguito con successo");
+			 response.sendRedirect(request.getContextPath() + "/user/ordini.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

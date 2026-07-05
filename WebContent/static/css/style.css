@@ -293,3 +293,21 @@ legend {
 		grid-template-columns: 1fr; /* 1 single column for mobile phones */
 	}
 }
+
+/* Admin card links */
+
+.page .card + .card {
+	margin-top: 1.5rem;
+}
+
+a.btn {
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 12px 24px;
+	text-decoration: none;
+}
+
+.card .btn + .btn {
+	margin-top: 0.75rem;
+}

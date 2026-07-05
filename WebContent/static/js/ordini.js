@@ -1,37 +1,27 @@
-function badgeClass(stato) {
-	if (!stato) return 'badge-default';
-	const s = stato.toLowerCase();
-	if (s.includes('in_attesa')) return 'badge-attesa';
-	if (s.includes('spedito')) return 'badge-spedito';
-	if (s.includes('consegnato')) return 'badge-consegnato';
-	if (s.includes('annullato')) return 'badge-annullato';
-	return 'badge-default';
-}
+const filtri = ["id-utente", "stato", "data-inizio", "data-fine"];
 
-function formatDate(ts) {
-	if (!ts) return '—';
-	return new Date(ts).toLocaleString('it-IT', {
-		day: '2-digit',
-		month: '2-digit',
-		year: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit'
-	});
-}
+let debounceTimer;
 
-async function loadOrdini() {
+filtri.forEach(id => {
+	document.getElementById(id).addEventListener("input", () => {
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(filtra, 300);
+	})
+});
+
+async function filtra() {
 	const params = new URLSearchParams();
 
-	const utente = document.getElementById('f-utente').value.trim();
+	const utente = document.getElementById('id-utente').value.trim();
 	if (utente) params.set('utente-id', utente);
 
-	const stato = document.getElementById('f-stato').value;
+	const stato = document.getElementById('stato').value;
 	if (stato) params.set('stato', stato);
 
-	const dataInizio = document.getElementById('f-data-inizio').value;
+	const dataInizio = document.getElementById('data-inizio').value;
 	if (dataInizio) params.set('data-inizio', dataInizio);
 
-	const dataFine = document.getElementById('f-data-fine').value;
+	const dataFine = document.getElementById('data-fine').value;
 	if (dataFine) params.set('data-fine', dataFine);
 
 	const tbody = document.getElementById('tbody');
@@ -51,24 +41,24 @@ async function loadOrdini() {
 			<tr>
 				<td><strong>${o.id}</strong></td>
 				<td>${o.utenteId}</td>
-				<td><span class="badge ${badgeClass(o.stato)}">${o.stato ?? '—'}</span></td>
+				<td><span>${o.stato ?? '—'}</span></td>
 				<td>${o.indirizzoSpedizione ?? '—'}</td>
 				<td>${o.tracking ?? '—'}</td>
 				<td>${o.note ?? '—'}</td>
-				<td>${formatDate(o.dataOrdine)}</td>
+				<td>${o.dataOrdine}</td>
 			</tr>
 		`).join('');
 	} catch (e) {
-		tbody.innerHTML = `<tr><td colspan="7" class="error">⚠️ ${e.message}</td></tr>`;
+		tbody.innerHTML = `<tr><td colspan="7" class="error">️ ${e.message}</td></tr>`;
 	}
 }
 
 function resetFiltri() {
-	document.getElementById('f-utente').value = '';
-	document.getElementById('f-stato').value = '';
-	document.getElementById('f-data-inizio').value = '';
-	document.getElementById('f-data-fine').value = '';
-	loadOrdini();
+	document.getElementById('id-utente').value = '';
+	document.getElementById('stato').value = '';
+	document.getElementById('data-inizio').value = '';
+	document.getElementById('data-fine').value = '';
+	filtra();
 }
 
-loadOrdini();
+filtra();
