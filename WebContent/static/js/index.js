@@ -1,7 +1,7 @@
 async function filtra() {
 	const params = new URLSearchParams();
 	params.set("disponibilita", '0');
-	
+
 	const res = await fetch(`${contextPath}/common/ArticoliServlet?${params.toString()}`);
 	if (!res.ok) {
 		throw new Error(`Errore interno: ${res.status}`);
@@ -19,7 +19,7 @@ function renderHomeGriglia(articoli) {
 		return;
 	}
 	griglia.innerHTML = articoli.map(a => `
-		<div class="card articolo">
+		<div class="card articolo" onclick="vaiAlDettaglio(${a.id})" style="cursor:pointer;">
 			<img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/320x200'">
 			<div class="articolo-info">
 				<b>${a.nome}</b>
@@ -36,5 +36,8 @@ function renderHomeGriglia(articoli) {
 			</div>
 		</div>
 	`).join("");
+}
+function vaiAlDettaglio(articoloId) {
+	window.location.href = `${contextPath}/common/dettaglio.jsp?id=${articoloId}`;
 }
 filtra();

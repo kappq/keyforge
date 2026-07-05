@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* Page */
+
+.error-page {
+	background: var(--bg);
+	min-height: 480px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem 1rem;
+	color: var(--text);
+}
+
+.error-card {
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 12px;
+	padding: 2.75rem 2.5rem;
+	width: 100%;
+	max-width: 560px;
+	text-align: center;
+}
+
+/* Status code */
+
+.error-code {
+	font-size: 56px;
+	font-weight: 500;
+	color: var(--red);
+	line-height: 1;
+	margin: 0 0 0.5rem;
+}
+
+.error-card h1 {
+	font-size: 20px;
+	font-weight: 500;
+	margin: 0 0 1.5rem;
+	color: var(--text);
+}
+
+/* URI */
+
+.error-uri {
+	font-size: 13px;
+	color: var(--text-sec);
+	background: var(--bg);
+	border: 1px solid #eee;
+	border-radius: 6px;
+	padding: 8px 12px;
+	word-break: break-all;
+	margin: 0 0 1.5rem;
+}
+
+/* Exception detail */
+
+.error-detail {
+	text-align: left;
+	border-top: 1px solid #f0f0f0;
+	padding-top: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.error-detail h2 {
+	font-size: 14px;
+	font-wei;
+}
