@@ -11,12 +11,12 @@ filtri.forEach(id => {
 
 async function filtra() {
 	const params = new URLSearchParams();
-	
+
 	const nome = document.getElementById("nome").value;
 	const prezzoMin = document.getElementById("prezzo-min").value;
 	const prezzoMax = document.getElementById("prezzo-max").value;
 	const disponibilita = document.getElementById("disponibilita").value;
-	
+
 	if (nome) {
 		params.set("nome", nome);
 	}
@@ -29,7 +29,7 @@ async function filtra() {
 	if (disponibilita) {
 		params.set("disponibilita", disponibilita);
 	}
-	
+
 	const res = await fetch(`${contextPath}/common/ArticoliServlet?${params.toString()}`);
 	if (!res.ok) {
 		throw new Error(`Errore interno: ${res.status}`);
@@ -48,7 +48,7 @@ function renderGriglia(articoli) {
 	}
 
 	griglia.innerHTML = articoli.map(a => `
-		<div class="card articolo">
+		<div class="card articolo" onclick="vaiAlDettaglio(${a.id})" style="cursor:pointer;">
 		    <img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/320x200'">
 		    <div class="articolo-info">
 		        <b>${a.nome}</b>
@@ -61,11 +61,15 @@ function renderGriglia(articoli) {
 		                <span class="prezzo">€ ${a.prezzo.toFixed(2)}</span>
 		                <span class="disponibilita">${a.disponibilita > 0 ? a.disponibilita + " disponibili" : "Esaurito"}</span>
 		            </div>
-		            <button type="button" ${a.disponibilita === 0 ? "disabled" : ""} class="btn" onclick="addToCart(${a.id})">Aggiungi al Carrello</button>
+		            <button type="button" ${a.disponibilita === 0 ? "disabled" : ""} class="btn" onclick="event.stopPropagation(); addToCart(${a.id})">Aggiungi al Carrello</button>
 		        </div>
 		    </div>
 		</div>
 	`).join("");
+}
+
+function vaiAlDettaglio(articoloId) {
+	window.location.href = `${contextPath}/common/dettaglio.jsp?id=${articoloId}`;
 }
 
 async function addToCart(articoloId) {

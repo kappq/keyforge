@@ -10,19 +10,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/error.css">
 <title>Errore <%= status %></title>
 </head>
 <body>
-<main>
-  	<h1>Errore <%= status %></h1>
-  	<p>URI: <%= (uri != null) ? uri : "sconosciuta" %></p>	
-	<%  if (ex != null) { %>
-    	<h2>Dettaglio eccezione</h2>
-    	<p><%= ex.getClass().getName() %>: <%= ex.getMessage() %></p>
- 	<% } else { %>
-    	<p>Nessuna eccezione associata.</p>
- 	<% } %>
-</main>
+<div class="error-page">
+	<div class="error-card">
+		<p class="error-code"><%= status %></p>
+		<h1>Si è verificato un errore</h1>
+
+		<p class="error-uri">URI: <%= (uri != null) ? uri : "sconosciuta" %></p>
+
+		<% if (ex != null) { %>
+			<div class="error-detail">
+				<h2>Dettaglio eccezione</h2>
+				<p><%= ex.getClass().getName() %>: <%= ex.getMessage() %></p>
+			</div>
+		<% } else { %>
+			<p class="error-none">Nessuna eccezione associata.</p>
+		<% } %>
+
+		<a href="${pageContext.request.contextPath}/" class="link error-back">Torna alla home</a>
+	</div>
+</div>
 </body>
 </html>
