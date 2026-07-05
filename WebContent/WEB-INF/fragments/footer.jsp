@@ -23,7 +23,7 @@
 		<div class="footer-col">
 			<h3>Acquisti</h3>
 			<a href="${pageContext.request.contextPath}/common/carrello.jsp">Carrello</a>
-			<a href="#">Ordini</a>
+			<a href="${pageContext.request.contextPath}/user/ordini.jsp">Ordini</a>
 			<a href="${pageContext.request.contextPath}/user/checkout.jsp">Checkout</a>
 		</div>
 

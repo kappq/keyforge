@@ -59,8 +59,21 @@
 
 			<form method="post" action="${pageContext.request.contextPath}/user/LogoutServlet" class="logout-form">
 				<button type="submit" class="btn btn-logout">Logout</button>
+		
+				<div class="form-footer">
+					Visualizza i tuoi <a href="${pageContext.request.contextPath}/user/ordini.jsp">ordini</a>.
+				</div>
 			</form>
 		</div>
+		
+		<% if (utente.getIsAdmin()) { %>
+			<div class="card">
+				<h1>Admin</h1>
+				
+				<a href="${pageContext.request.contextPath}/admin/ordini.jsp" class="btn">Visualizza e Filtra Ordini</a>
+				<a href="${pageContext.request.contextPath}/admin/ViewArticoliServlet" class="btn">Gestisci Articoli</a>
+			</div>
+		<% } %>
 	</main>
 
 	<jsp:include page="/WEB-INF/fragments/footer.jsp" />
