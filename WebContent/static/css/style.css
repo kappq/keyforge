@@ -344,3 +344,18 @@ a.btn {
 	-webkit-overflow-scrolling: touch;
 	display: block;
 }
+
+.check input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	accent-color: var(--primary);
+	cursor: pointer;
+}
+
+.check label {
+	cursor: pointer;
+}
+
+.check .asterisco {
+	color: var(--red);
+}

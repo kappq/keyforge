@@ -76,6 +76,11 @@
 					</div>
 
 					<form method="post" action="${pageContext.request.contextPath}/user/ConfirmOrderServlet">
+						<div class="check" style="margin-bottom: 1rem;">
+							<input type="checkbox" id="conferma-pagamento" name="conferma-pagamento" required>
+							<label for="conferma-pagamento">*Il pagamento avviene alla consegna</label>
+						</div>
+					
 						<button type="submit" class="btn">Conferma Ordine</button>
 					</form>
 				</div>
