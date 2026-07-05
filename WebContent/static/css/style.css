@@ -311,3 +311,18 @@ a.btn {
 .card .btn + .btn {
 	margin-top: 0.75rem;
 }
+
+.check input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	accent-color: var(--primary);
+	cursor: pointer;
+}
+
+.check label {
+	cursor: pointer;
+}
+
+.check .asterisco {
+	color: var(--red);
+}
