@@ -24,7 +24,8 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 					rs.getInt("disponibilita"),
 					rs.getInt("dimensione"),
 					rs.getInt("peso"),
-					rs.getString("layout")
+					rs.getString("layout"),
+					rs.getBoolean("eliminato")
 				);
 				return articolo;
 			} else {
@@ -36,7 +37,7 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 	@Override
 	public Collection<Articolo> findAll() throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo");
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE eliminato = 0");
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Articolo> list = new ArrayList<Articolo>();
 			while (rs.next()) {
@@ -76,7 +77,7 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 	@Override
 	public void update(Articolo articolo) throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement("UPDATE articolo SET nome = ?, descrizione = ?, brand = ?, prezzo = ?, disponibilita = ?, dimensione = ?, peso = ?, layout = ? WHERE id = ?");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE articolo SET nome = ?, descrizione = ?, brand = ?, prezzo = ?, disponibilita = ?, dimensione = ?, peso = ?, layout = ?, eliminato = ? WHERE id = ?");
 			stmt.setString(1, articolo.getNome());
 			stmt.setString(2, articolo.getDescrizione());
 			stmt.setString(3, articolo.getBrand());
@@ -85,7 +86,8 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 			stmt.setInt(6, articolo.getDimensione());
 			stmt.setInt(7, articolo.getPeso());
 			stmt.setString(8, articolo.getLayout());
-			stmt.setInt(9, articolo.getId());
+			stmt.setBoolean(9, articolo.getEliminato());
+			stmt.setInt(10, articolo.getId());
 			stmt.executeUpdate();
 		}
 	}
@@ -101,7 +103,7 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 
 	public Collection<Articolo> findFiltered(String nome, int prezzoMin, int prezzoMax, int disponibilita) throws SQLException {
 		try (Connection conn = ConnectionManager.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE LOWER(nome) LIKE LOWER(?) AND ? <= prezzo AND prezzo <= ? AND disponibilita >= ?");
+			PreparedStatement stmt = conn.prepareStatement("SELECT * FROM articolo WHERE LOWER(nome) LIKE LOWER(?) AND ? <= prezzo AND prezzo <= ? AND disponibilita >= ? AND eliminato = 0");
 			stmt.setString(1, "%" + nome + "%");
 			stmt.setInt(2, prezzoMin);
 			stmt.setInt(3, prezzoMax);
@@ -118,7 +120,8 @@ public class ArticoloDAO implements DAO<Articolo, Integer> {
 					rs.getInt("disponibilita"),
 					rs.getInt("dimensione"),
 					rs.getInt("peso"),
-					rs.getString("layout")
+					rs.getString("layout"),
+					rs.getBoolean("eliminato")
 				);
 				list.add(articolo);
 			}

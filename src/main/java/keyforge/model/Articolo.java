@@ -15,6 +15,7 @@ public class Articolo implements Serializable {
     private int dimensione;
     private int peso;
     private String layout;
+    private boolean eliminato = false;
 	
 	public Articolo() {}
 
@@ -29,6 +30,20 @@ public class Articolo implements Serializable {
         this.dimensione = dimensione;
         this.peso = peso;
         this.layout = layout;
+	}
+
+	public Articolo(int id, String nome, String descrizione, String brand, BigDecimal prezzo, int disponibilita, int dimensione, int peso, String layout, boolean eliminato) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descrizione = descrizione;
+		this.brand = brand;
+		this.prezzo = prezzo;
+		this.disponibilita = disponibilita;
+        this.dimensione = dimensione;
+        this.peso = peso;
+        this.layout = layout;
+        this.eliminato = eliminato;
 	}
 
 	public int getId() { return id; }
@@ -57,4 +72,7 @@ public class Articolo implements Serializable {
 
     public String getLayout() { return layout; }
     public void setLayout(String layout) { this.layout = layout; }
+    
+    public boolean getEliminato() { return eliminato; }
+    public void setEliminato(boolean eliminato) { this.eliminato = eliminato; }
 }

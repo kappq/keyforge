@@ -11,7 +11,8 @@ CREATE TABLE articolo (
 	disponibilita INT UNSIGNED NOT NULL,
 	dimensione INT NOT NULL, -- in millimetri
 	peso INT NOT NULL, -- in grammi
-	layout VARCHAR(255) NOT NULL
+	layout VARCHAR(255) NOT NULL,
+	eliminato BOOLEAN DEFAULT False
 );
 
 CREATE TABLE immagine (

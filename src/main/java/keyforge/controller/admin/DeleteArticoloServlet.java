@@ -56,7 +56,10 @@ public class DeleteArticoloServlet extends HttpServlet {
 		ArticoloDAO articoloDAO = new ArticoloDAO();
 
 		try {
-			articoloDAO.delete(articoloId);
+			Articolo articolo = articoloDAO.findById(articoloId);
+			articolo.setEliminato(true);
+
+			articoloDAO.update(articolo);
 			
 			request.getSession().setAttribute("successMessage", "Articolo cancellato con successo");
 			response.sendRedirect(request.getContextPath() + "/admin/ViewArticoliServlet");

@@ -72,8 +72,8 @@ public class ConfirmOrderServlet extends HttpServlet {
 			
 			session.removeAttribute("carrello");
 
-			 session.setAttribute("successMessage", "Ordine eseguito con successo");
-			 response.sendRedirect(request.getContextPath() + "/user/ordini.jsp");
+			session.setAttribute("successMessage", "Ordine eseguito con successo");
+			response.sendRedirect(request.getContextPath() + "/user/ordini.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
