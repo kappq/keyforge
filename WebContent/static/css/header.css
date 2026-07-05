@@ -9,6 +9,7 @@
 	display: flex;
 	align-items: center;
 	gap: 2rem;
+	position: relative;
 }
 
 .navbar-brand {
@@ -25,7 +26,7 @@
 .navbar-brand svg {
 	width: 36px;
 	height: 36px;
-	fill: currentColor; 
+	fill: currentColor;
 	padding: 4px;
 }
 
@@ -76,4 +77,86 @@
 	width: 26px;
 	height: 26px;
 	fill: currentColor;
+}
+
+.navbar-toggle-checkbox {
+	display: none;
+}
+
+.navbar-toggle {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: var(--text);
+	cursor: pointer;
+	padding: 4px;
+	margin-left: auto;
+}
+
+.navbar-toggle svg {
+	width: 24px;
+	height: 24px;
+	fill: currentColor;
+}
+
+@media (max-width: 768px) {
+	.navbar {
+		padding: 0 1.25rem;
+		gap: 1rem;
+	}
+
+	.navbar-divider {
+		display: none;
+	}
+
+	.navbar-toggle {
+		display: flex;
+		order: 1;
+	}
+
+	.navbar-icons {
+		order: 2;
+		margin-left: 0;
+	}
+
+	.navbar-links {
+		display: none;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0;
+		position: absolute;
+		top: 64px;
+		left: 0;
+		width: 100%;
+		background: #fff;
+		border-bottom: 1px solid #e8e8e8;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+		flex: none;
+		order: 3;
+	}
+
+	.navbar-toggle-checkbox:checked ~ .navbar-links {
+		display: flex;
+	}
+
+	.navbar-links a {
+		width: 100%;
+		padding: 0.85rem 1.25rem;
+		box-sizing: border-box;
+		border-bottom: 1px solid #f2f2f2;
+	}
+
+	.navbar-links a:last-child {
+		border-bottom: none;
+	}
+}
+
+@media (max-width: 400px) {
+	.navbar-brand {
+		font-size: 15px;
+	}
+
+	.navbar-icons {
+		gap: 0.75rem;
+	}
 }

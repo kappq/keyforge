@@ -27,10 +27,9 @@
 			<div class="card wide">
 				<h1>I Miei Ordini</h1>
 
-				<table>
+				<table class="table-scroll">
 					<thead>
 						<tr>
-							<th>ID</th>
 							<th>Stato</th>
 							<th>Indirizzo</th>
 							<th>Tracking</th>
@@ -47,7 +46,6 @@
 						<% } else { %>
 							<% for (Ordine ordine : ordini) { %>
 								<tr>
-									<td><%= ordine.getId() %></td>
 									<td><%= ordine.getStato() %></td>
 									<td><%= ordine.getIndirizzoSpedizione() %></td>
 									<td><%= ordine.getTracking() %></td>

@@ -15,7 +15,6 @@ html {
 	font-family: "Space Grotesk", sans-serif;
 }
 
-/* Alcuni elementi, specialmente gli elementi di controllo dei form non eridatano il font */
 button,
 input,
 optgroup,
@@ -42,6 +41,7 @@ textarea {
 	padding: 2.5rem 2rem;
 	width: 100%;
 	max-width: 420px;
+	box-sizing: border-box;
 }
 
 .card h1 {
@@ -150,7 +150,7 @@ textarea {
 .field textarea {
 	min-height: 100px;
 	resize: vertical;
-	font-family: inherit; /* Ensures Space Grotesk alignment */
+	font-family: inherit;
 }
 
 .field input:focus,
@@ -177,8 +177,6 @@ textarea {
 	color: #BC4B51;
 }
 
-/* Table Styles */
-
 .card.wide {
 	max-width: 1200px;
 }
@@ -193,6 +191,7 @@ th, td {
 	padding: 12px 16px;
 	text-align: left;
 	border-bottom: 1px solid #e0e0e0;
+	white-space: nowrap;
 }
 
 th {
@@ -210,7 +209,7 @@ td {
 }
 
 tr:hover td {
-	background: #FCF9F9; /* Subtle variant of var(--bg) to track rows */
+	background: #FCF9F9;
 }
 
 .logout-form {
@@ -230,11 +229,9 @@ tr:hover td {
 }
 
 .btn.btn-logout:active {
-	background: #a33e43; /* slightly darker shade of --red */
+	background: #a33e43;
 	border-color: #a33e43;
 }
-
-/* Fieldset Styles */
 
 fieldset {
 	border: 1px solid #e0e0e0;
@@ -277,24 +274,10 @@ legend {
 
 .riepilogo-grid {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr); /* Spreads neatly across 3 columns */
+	grid-template-columns: repeat(3, 1fr);
 	gap: 1.5rem;
 	margin-bottom: 2rem;
 }
-
-@media (max-width: 900px) {
-	.riepilogo-grid {
-		grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
-	}
-}
-
-@media (max-width: 600px) {
-	.riepilogo-grid {
-		grid-template-columns: 1fr; /* 1 single column for mobile phones */
-	}
-}
-
-/* Admin card links */
 
 .page .card + .card {
 	margin-top: 1.5rem;
@@ -310,6 +293,56 @@ a.btn {
 
 .card .btn + .btn {
 	margin-top: 0.75rem;
+}
+
+@media (max-width: 900px) {
+	.riepilogo-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 700px) {
+	.card.wide {
+		padding: 1.5rem 1rem;
+		min-width: 0;
+	}
+
+	.catalogo-page,
+	.catalogo {
+		min-width: 0;
+		overflow-x: hidden;
+	}
+}
+
+@media (max-width: 600px) {
+	.riepilogo-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 480px) {
+	.page {
+		padding: 1.5rem 1.25rem;
+	}
+
+	.card {
+		padding: 1.75rem 1.25rem;
+	}
+
+	.card h1 {
+		font-size: 20px;
+	}
+
+	fieldset {
+		padding: 0.85rem 1rem 1rem;
+	}
+}
+
+.table-scroll {
+	width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	display: block;
 }
 
 .check input[type="checkbox"] {

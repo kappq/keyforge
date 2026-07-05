@@ -6,6 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Carrello</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,28 +30,22 @@
 	<div class="cart-page">
 		<div class="cart">
 			<div class="cart-header">
-				<h1>Il tuo carrello</h1>
+				<h1>Carrello</h1>
+
 				<% if (carrello != null && !carrello.isEmpty()) { %>
-				<form method="post" action="<%= request.getContextPath() %>/common/EmptyCartServlet">
-					<button type="submit" class="btn-outline">Svuota carrello</button>
-				</form>
+					<form method="post" action="<%= request.getContextPath() %>/common/EmptyCartServlet">
+						<button type="submit" class="btn-outline">Svuota carrello</button>
+					</form>
 				<% } %>
 			</div>
 
-			<% if (errorMessage != null) { %>
-				<p class="field-error"><%= errorMessage %></p>
-			<% } %>
-
 			<% if (carrello == null || carrello.isEmpty()) { %>
-
 				<div class="cart-empty">
 					<svg viewBox="0 0 24 24"><path d="M7 4h-2l-1 2h-2v2h2l3.6 7.59-1.35 2.44c-.16.28-.25.61-.25.97 0 1.1.9 2 2 2h12v-2h-11.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14.42l-.94-2zm0 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
 					<p>Il carrello è vuoto</p>
 					<a href="${pageContext.request.contextPath}/common/catalogo.jsp" class="btn">Continua lo shopping</a>
 				</div>
-
 			<% } else { %>
-
 				<div class="cart-layout">
 					<div class="cart-items">
 						<%
@@ -99,7 +94,6 @@
 						</a>
 					</div>
 				</div>
-
 			<% } %>
 		</div>
 	</div>

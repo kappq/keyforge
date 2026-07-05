@@ -6,6 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Riepilogo</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,6 +48,10 @@
 							<div class="cart-item-info">
 								<b><%= articolo.getNome() %></b>
 								<span><%= articolo.getPrezzo() %> € cad.</span>
+							</div>
+
+							<div class="cart-item-qty">
+								<span><%= value %>x</span>
 							</div>
 
 							<div class="cart-item-subtotal"><%= subtotale %> €</div>

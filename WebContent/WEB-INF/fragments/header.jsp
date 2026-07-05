@@ -7,6 +7,11 @@
 
 	<div class="navbar-divider"></div>
 
+	<input type="checkbox" id="navbarToggle" class="navbar-toggle-checkbox">
+	<label for="navbarToggle" class="navbar-toggle" aria-label="Menu">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64L416 64C433.7 64 448 78.3 448 96C448 113.7 433.7 128 416 128L32 128C14.3 128 0 113.7 0 96zM0 256C0 238.3 14.3 224 32 224L416 224C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288L32 288C14.3 288 0 273.7 0 256zM448 416C448 433.7 433.7 448 416 448L32 448C14.3 448 0 433.7 0 416C0 398.3 14.3 384 32 384L416 384C433.7 384 448 398.3 448 416z"/></svg>
+	</label>
+
 	<nav class="navbar-links">
 		<a href="${pageContext.request.contextPath}/common/catalogo.jsp">Tastiere</a>
 		<a href="${pageContext.request.contextPath}/common/catalogo.jsp">Switch</a>

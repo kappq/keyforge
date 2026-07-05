@@ -50,7 +50,7 @@
 				</aside>
 
 				<div class="card wide">
-					<table>
+					<table class="table-scroll">
 						<thead>
 							<tr>
 								<th>ID</th>

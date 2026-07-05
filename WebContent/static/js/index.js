@@ -8,7 +8,6 @@ async function filtra() {
 	}
 	articoli = await res.json();
 	articoli = articoli.slice(0, 6);
-	console.log(articoli);
 	renderHomeGriglia(articoli);
 }
 function renderHomeGriglia(articoli) {
