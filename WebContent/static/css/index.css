@@ -90,7 +90,7 @@
 	height: 220px;
 	object-fit: cover;
 	display: block;
-	background: var(--alt-bg);
+	background: #fff;
 }
 
 .articolo-info {

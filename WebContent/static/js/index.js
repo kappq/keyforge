@@ -19,7 +19,7 @@ function renderHomeGriglia(articoli) {
 	}
 	griglia.innerHTML = articoli.map(a => `
 		<div class="card articolo" onclick="vaiAlDettaglio(${a.id})" style="cursor:pointer;">
-			<img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/320x200'">
+			<img src="${contextPath}/common/ImageServlet?id=${a.id}" onerror="this.src='https://placehold.co/320x200'">
 			<div class="articolo-info">
 				<b>${a.nome}</b>
 				<span>${a.brand}</span>

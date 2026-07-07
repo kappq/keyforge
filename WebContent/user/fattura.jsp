@@ -58,6 +58,5 @@
     <div class="no-print">
         <button onclick="window.print()">Stampa / Salva come PDF</button>
     </div>
-
 </body>
 </html>
