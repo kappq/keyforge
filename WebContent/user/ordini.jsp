@@ -27,36 +27,38 @@
 			<div class="card wide">
 				<h1>I Miei Ordini</h1>
 
-				<table class="table-scroll">
-					<thead>
-						<tr>
-							<th>Stato</th>
-							<th>Indirizzo</th>
-							<th>Tracking</th>
-							<th>Note</th>
-							<th>Data ordine</th>
-							<th>Fattura</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% if (ordini == null || ordini.isEmpty()) { %>
+				<div class="table-scroll">
+					<table>
+						<thead>
 							<tr>
-								<td colspan="6" class="griglia-vuota">Non hai ancora effettuato ordini.</td>
+								<th>Stato</th>
+								<th>Indirizzo</th>
+								<th>Tracking</th>
+								<th>Note</th>
+								<th>Data ordine</th>
+								<th>Fattura</th>
 							</tr>
-						<% } else { %>
-							<% for (Ordine ordine : ordini) { %>
+						</thead>
+						<tbody>
+							<% if (ordini == null || ordini.isEmpty()) { %>
 								<tr>
-									<td><%= ordine.getStato() %></td>
-									<td><%= ordine.getIndirizzoSpedizione() %></td>
-									<td><%= ordine.getTracking() %></td>
-									<td><%= (ordine.getNote() != null ? ordine.getNote() : "-") %></td>
-									<td><%= ordine.getDataOrdine() %></td>
-									<td><a href="${pageContext.request.contextPath}/user/FatturaServlet?ordine-id=<%= ordine.getId() %>" target="blank_">Fattura</a></td>
+									<td colspan="6" class="griglia-vuota">Non hai ancora effettuato ordini.</td>
 								</tr>
+							<% } else { %>
+								<% for (Ordine ordine : ordini) { %>
+									<tr>
+										<td><%= ordine.getStato() %></td>
+										<td><%= ordine.getIndirizzoSpedizione() %></td>
+										<td><%= ordine.getTracking() %></td>
+										<td><%= (ordine.getNote() != null ? ordine.getNote() : "-") %></td>
+										<td><%= ordine.getDataOrdine() %></td>
+										<td><a href="${pageContext.request.contextPath}/user/FatturaServlet?ordine-id=<%= ordine.getId() %>" target="blank_">Fattura</a></td>
+									</tr>
+								<% } %>
 							<% } %>
-						<% } %>
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</main>

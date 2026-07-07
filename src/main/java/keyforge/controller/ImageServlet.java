@@ -2,6 +2,9 @@ package keyforge.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.NoSuchElementException;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +27,11 @@ public class ImageServlet extends HttpServlet {
 
 		try {
 			ImmagineDAO immagineDAO = new ImmagineDAO();
-			Immagine immagine = immagineDAO.findById(Integer.parseInt(id));
-			if (immagine == null) {
+			Collection<Immagine> immagini = immagineDAO.findByArticoloId(Integer.parseInt(id));
+			Immagine immagine;
+			try {
+				immagine = immagini.iterator().next();
+			} catch (NoSuchElementException e) {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}

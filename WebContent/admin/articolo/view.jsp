@@ -24,38 +24,40 @@
 			<% if (articoli.isEmpty()) { %>
 				<div class="form-footer">Nessun articolo presente nel catalogo.</div>
 			<% } else { %>
-				<table class="table-scroll">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Nome</th>
-							<th>Brand</th>
-							<th>Prezzo</th>
-							<th>Disponibilità</th>
-							<th>Layout</th>
-							<th>Modifica</th>
-							<th>Elimina</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% for (Articolo a : articoli) { %>
+				<div class="table-scroll">
+					<table>
+						<thead>
 							<tr>
-								<td><%= a.getId() %></td>
-								<td><strong><%= a.getNome() %></strong></td>
-								<td><%= a.getBrand() %></td>
-								<td><%= a.getPrezzo() %> €</td>
-								<td><%= a.getDisponibilita() %> px</td>
-								<td><%= a.getLayout() %></td>
-								<td>
-									<a href="${pageContext.request.contextPath}/admin/UpdateArticoloServlet?articolo-id=<%= a.getId() %>" class="link">Modifica</a>
-								</td>
-								<td>
-									<a href="${pageContext.request.contextPath}/admin/DeleteArticoloServlet?articolo-id=<%= a.getId() %>" class="link">Elimina</a>
-								</td>
+								<th>ID</th>
+								<th>Nome</th>
+								<th>Brand</th>
+								<th>Prezzo</th>
+								<th>Disponibilità</th>
+								<th>Layout</th>
+								<th>Modifica</th>
+								<th>Elimina</th>
 							</tr>
-						<% } %>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<% for (Articolo a : articoli) { %>
+								<tr>
+									<td><%= a.getId() %></td>
+									<td><strong><%= a.getNome() %></strong></td>
+									<td><%= a.getBrand() %></td>
+									<td><%= a.getPrezzo() %> €</td>
+									<td><%= a.getDisponibilita() %> px</td>
+									<td><%= a.getLayout() %></td>
+									<td>
+										<a href="${pageContext.request.contextPath}/admin/UpdateArticoloServlet?articolo-id=<%= a.getId() %>" class="link">Modifica</a>
+									</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/admin/DeleteArticoloServlet?articolo-id=<%= a.getId() %>" class="link">Elimina</a>
+									</td>
+								</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
 			<% } %>
 
 			<div class="form-footer">

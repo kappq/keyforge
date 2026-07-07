@@ -50,20 +50,22 @@
 				</aside>
 
 				<div class="card wide">
-					<table class="table-scroll">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Utente</th>
-								<th>Stato</th>
-								<th>Indirizzo</th>
-								<th>Tracking</th>
-								<th>Note</th>
-								<th>Data ordine</th>
-							</tr>
-						</thead>
-						<tbody id="tbody"></tbody>
-					</table>
+					<div class="table-scroll">
+						<table>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Utente</th>
+									<th>Stato</th>
+									<th>Indirizzo</th>
+									<th>Tracking</th>
+									<th>Note</th>
+									<th>Data ordine</th>
+								</tr>
+							</thead>
+							<tbody id="tbody"></tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

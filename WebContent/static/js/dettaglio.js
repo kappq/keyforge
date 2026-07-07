@@ -38,7 +38,7 @@ function renderDettaglio(a) {
 
 	contenitore.innerHTML = `
 		<div class="card dettaglio-img">
-			<img src="${contextPath}/ImageServlet?articoloId=${a.id}" onerror="this.src='https://placehold.co/600x420'">
+			<img src="${contextPath}/common/ImageServlet?id=${a.id}" onerror="this.src='https://placehold.co/600x400'">
 		</div>
 		<div class="card dettaglio-info">
 			<p class="dettaglio-brand">${a.brand}</p>
